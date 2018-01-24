@@ -5,10 +5,10 @@
 
 * Team Name & Members
 	• Tech Chumps
-		• Richard Paez
-		• Alex Florian-Prescott
-		• Tony Gottschalk
-		• Harris Joseph
+		• Richard Paez (919 696-7343)
+		• Alex Florian-Prescott (919 257-8446)
+		• Tony Gottschalk (919 599-7176)
+		• Harris Joseph (828 620-0256)
 
 * Project Description
 	• Real-time Polling and Chat service
