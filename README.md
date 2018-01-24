@@ -1,9 +1,9 @@
 # project-1
 
 * Project Title
-	• Drinking Free Family Polling
+	• Crypto Clash Dashboard
 
-* Team Tame & Members
+* Team Name & Members
 	• Tech Chumps
 		• Richard Paez
 		• Alex Florian-Prescott
@@ -17,26 +17,32 @@
 	• Poll Questions
 	• Poll Results
 	• Poll Discussion
+
+	• User Login Page
+	• Real-time Polling Page
+	• Real-time Chat Discussion
 	
 * APIs to be used
 	• Reddit
-	• Some Crypto API
+	• Alpha Vantage API
+	• TinyURL
+	• D3 Visualization
 
 * Rough Breakdown of Tasks
 	• UI
 		• Tony
-		• Alex
-	• Backend
 		• Richard
+	• Backend
+		• Alex
 		• Harris
 
 * Libraries and Technology
-	• Socket.io
-	• Bootstrap 4
 	• Firebase
+	• Bootstrap 4
 	• GSAP
 	• Node.js
 	• Express.js
+	• Socket.io
 
 
 
