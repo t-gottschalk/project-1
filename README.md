@@ -7,7 +7,7 @@
 	• Tech Chumps
 		• Richard Paez (919 696-7343)
 		• Alex Florian-Prescott (919 257-8446)
-		• Tony Gottschalk (919 599-7176)
+		• Tony Gottschalk (919 638-3658)
 		• Harris Joseph (828 620-0256)
 
 * Project Description
