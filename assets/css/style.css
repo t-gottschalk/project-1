@@ -25,18 +25,13 @@ a {
   color: #fff;
 }
 
-h1 {
-  text-align: left;
-  float: left;
-}
-
 li {
   word-wrap: break-word;
 }
 
 .navbar {
   padding-right: 41.9%;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   height: 55px;
   border-radius: 0;
@@ -121,4 +116,24 @@ form {
   padding-left: 1.667%;
   padding-right: 1.667%;
   margin-left: 2.5%;
+}
+
+#footer {
+  min-height: 300px;
+  background-color: #f7931a;
+}
+
+#footer .footer-brand {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.credits {
+  margin-top: 10px;
+}
+
+.dev-box {
+  text-align: center;
 }
