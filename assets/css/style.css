@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: #177a39;
+  background-color: #F0F0F0;
 }
 
 .navbar-brand {
@@ -100,5 +100,6 @@ form {
 
 .section-header {
   font-size: 22px;
+  font-weight: bold;
   padding: 10px 16px;
 }
