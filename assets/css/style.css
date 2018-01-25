@@ -129,3 +129,14 @@ form {
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   transition: all 0.2s ease-in-out;
 }
+
+#chat {
+  padding-bottom: 50px;
+}
+
+#message-display {
+  padding: 0;
+  max-height: 248px;
+  min-height: 248px;
+  overflow-y: scroll; 
+}
