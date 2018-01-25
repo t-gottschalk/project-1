@@ -5,6 +5,13 @@
   font-family: 'Roboto', sans-serif;
 }
 
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
 body {
   background-color: #F0F0F0;
 }
@@ -21,11 +28,6 @@ a {
 h1 {
   text-align: left;
   float: left;
-}
-
-strong {
-  color: #fff;
-  font-size: 120%;
 }
 
 li {
@@ -91,6 +93,7 @@ form {
 }
 
 .section {
+  position: relative;
   min-height: 350px;
   margin-bottom: 25px;
   border-radius: 0;
@@ -102,4 +105,27 @@ form {
   font-size: 22px;
   font-weight: bold;
   padding: 10px 16px;
+}
+
+.send-message-wrapper {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+}
+
+#m {
+  height: 35px;
+  border: 0;
+  border-bottom: 2px solid lightgrey;
+}
+
+.chat-button {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  border: 0;
+  padding: 5px 0;
+}
+
+.chat-button:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  transition: all 0.2s ease-in-out;
 }
