@@ -4,12 +4,6 @@
   box-sizing: border-box;
 }
 
-html,
-body,
-#main-app {
-  height: 100%;
-}
-
 body {
   background-color: #177a39;
 }
@@ -39,15 +33,12 @@ li {
 
 .navbar {
   padding-right: 41.9%;
+  margin-bottom: 15px;
 }
 
 .navbar,
 .card-danger {
   background-color: #db9a29;
-}
-
-.container-fluid {
-  padding: 0;
 }
 
 #top-row {
@@ -67,22 +58,6 @@ li {
 
 .col-md-7 {
   padding-right: 10px;
-}
-
-#trc1 {
-  height: 100%;
-}
-
-#trc2 {
-  height: 100%;
-}
-
-#brc1 {
-  height: 100%;
-}
-
-#brc2 {
-  height: 100%;
 }
 
 form input {
@@ -116,10 +91,6 @@ form {
   background: #f9b640;
 }
 
-#chat {
-  height: 100%;
-}
-
 .card {
   height: 100%;
   margin-bottom: 0;
@@ -133,4 +104,12 @@ form {
 .card-block {
   overflow-y: scroll;
   height: 70%;
+}
+
+.section {
+  min-height: 350px;
+  margin-bottom: 25px;
+  border-radius: 0;
+  background-color: #FFFFFF;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }

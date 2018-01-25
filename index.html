@@ -25,19 +25,20 @@
         </span>
     </nav>
     <div class="container-fluid" id="main-app">
-        <div class="row" id="top-row">
-                <div id="ticker" class="card"></div>
+        <div class="row">
+            <div class="col-md-7">
+                <div id="ticker" class="section section-ticker"></div>
             </div>
-            <div class="col-md-5" id="trc2">
-                <div id="poll" class="card"></div>
+            <div class="col-md-5">
+                <div id="poll" class="section section-poll"></div>
             </div>
         </div>
-        <div class="row" id="bottom-row">
-            <div class="col-md-7" id="brc1">
-                <div id="articles" class="card"></div>
+        <div class="row">
+            <div class="col-md-7">
+                <div id="articles" class="section section-articles"></div>
             </div>
-            <div class="col-md-5" id="brc2">
-                <div id="chat" class="card card-inverse">
+            <div class="col-md-5">
+                <div id="chat" class="section section-chat card card-inverse">
                     <div class="card-header card-danger">Messages:</div>
                     <div class="card-block" id="message-display">
                         <ul id="messages"></ul>
