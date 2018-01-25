@@ -46,21 +46,29 @@ li {
   background-color: #db9a29;
 }
 
-form input {
-  width: 80%;
-  margin-right: 2.083%;
+.section {
+  position: relative;
+  min-height: 350px;
+  margin-bottom: 25px;
+  border-radius: 0;
+  background-color: #FFFFFF;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-form button {
-  width: 15%;
-  color: #fff;
-  background: #177a39;
+.section-header {
+  font-size: 22px;
+  font-weight: bold;
+  padding: 10px 16px;
 }
 
-form {
-  padding-left: 1.667%;
-  padding-right: 1.667%;
-  margin-left: 2.5%;
+#m {
+  height: 35px;
+  border: 0;
+  border-bottom: 2px solid lightgrey;
+}
+
+#chat {
+  padding-bottom: 50px;
 }
 
 #messages {
@@ -77,46 +85,10 @@ form {
   background: #f9b640;
 }
 
-.card {
-  height: 100%;
-  margin-bottom: 0;
-}
-
-.card-header,
-.card-footer {
-  height: 15%;
-}
-
-.card-block {
-  overflow-y: scroll;
-  height: 70%;
-}
-
-.section {
-  position: relative;
-  min-height: 350px;
-  margin-bottom: 25px;
-  border-radius: 0;
-  background-color: #FFFFFF;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-}
-
-.section-header {
-  font-size: 22px;
-  font-weight: bold;
-  padding: 10px 16px;
-}
-
 .send-message-wrapper {
   position: absolute;
   bottom: 15px;
   width: 100%;
-}
-
-#m {
-  height: 35px;
-  border: 0;
-  border-bottom: 2px solid lightgrey;
 }
 
 .chat-button {
@@ -130,13 +102,26 @@ form {
   transition: all 0.2s ease-in-out;
 }
 
-#chat {
-  padding-bottom: 50px;
-}
-
 #message-display {
   padding: 0;
   max-height: 248px;
   min-height: 248px;
   overflow-y: scroll; 
+}
+
+form input {
+  width: 80%;
+  margin-right: 2.083%;
+}
+
+form button {
+  width: 15%;
+  color: #fff;
+  background: #177a39;
+}
+
+form {
+  padding-left: 1.667%;
+  padding-right: 1.667%;
+  margin-left: 2.5%;
 }
