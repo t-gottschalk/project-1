@@ -87,11 +87,11 @@ li {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   border: 0;
   padding: 5px 0;
+  transition: all 0.2s ease-in-out;
 }
 
 .chat-button:hover {
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  transition: all 0.2s ease-in-out;
 }
 
 #message-display {
@@ -136,4 +136,34 @@ form {
 
 .dev-box {
   text-align: center;
+  font-weight: bold;
+}
+
+.pro-box {
+  display: block;
+  position: relative;
+  width: 120px;
+  margin: 10px auto;
+  padding: 10px;
+  background-color: #24292e;
+  color: #FFFFFF;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition: all 0.2s ease-in-out;
+}
+
+.pro-box:hover {
+  text-decoration: none;
+  color: #FFFFFF;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.pro-box:hover:active {
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.pro-box .fa{
+  position: absolute;
+  left: 16px;
+  top: 15px;
 }
