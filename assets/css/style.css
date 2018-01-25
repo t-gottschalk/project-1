@@ -34,30 +34,13 @@ li {
 .navbar {
   padding-right: 41.9%;
   margin-bottom: 15px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  border-radius: 0;
 }
 
 .navbar,
 .card-danger {
   background-color: #db9a29;
-}
-
-#top-row {
-  margin: 0 0 10px 0;
-  height: 330px
-}
-
-#bottom-row {
-  height: 330px;
-  margin: 0;
-}
-
-.col-md-5,
-.col-md-7 {
-  padding: 0;
-}
-
-.col-md-7 {
-  padding-right: 10px;
 }
 
 form input {
@@ -112,4 +95,9 @@ form {
   border-radius: 0;
   background-color: #FFFFFF;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.section-header {
+  font-size: 22px;
+  padding: 10px 16px;
 }
