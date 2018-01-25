@@ -1,105 +1,136 @@
- * { 
-  	margin: 0; 
-  	padding: 0; 
-  	box-sizing: border-box; 
-  }
-  html,body,#main-app{
-    height:100%;
-  }
-  body{
-    background-color: #177a39;
-  }
-  .navbar-brand{
-    width:25%;
-  }
-  a{
-    margin-right:10px;
-    color:#fff;
-  }
-  h1{
-    text-aligh:left;
-    float:left;
-  }
-  strong{
-    color:#fff;
-    font-size:120%;
-  }
-  li{
-    word-wrap: break-word;
-  }
-  .navbar{
-    padding-right:41.9%;
-  }
-  .navbar,.card-danger{
-    background-color:#db9a29;
-  }
-  .container-fluid{
-    padding:0;
-  }
-  #top-row{
-    margin:0 0 10px 0;
-    height:330px
-  }
-  #bottom-row{
-    height:330px;
-    margin:0;
-  }
-  .col-md-5,.col-md-7{
-    padding:0;
-  }
-  .col-md-7{
-    padding-right:10px;
-  }
-  #trc1{
-    height:100%;
-  }
-  #trc2{
-    height:100%;
-  }
-  #brc1{
-    height:100%;
-  }
-  #brc2{
-    height:100%;
-  }
-  form input {  
-  	width: 80%; 
-  	margin-right:2.083%; 
-  }
-  form button { 
-  	width: 15%;
-    color:#fff;
-  	background:#177a39; 
-  }
-  form{
-    padding-left:1.667%;
-    padding-right:1.667%;
-    margin-left:2.5%;
-  }
-  #messages { 
-  	list-style-type: none; 
-  	margin: 0; 
-  	padding: 0; 
-  }
-  #messages li { 
-  	padding: 5px 10px; 
-  }
-  #messages li:nth-child(odd) { 
-  	background: #f9b640; 
-  }
-  #chat{
-    height:100%;
-  }
-  .card{
-    height:100%;
-    margin-bottom:0;
-  }
-  .card-header,.card-footer{
-    height:15%;
-  }
-  .card-block{
-    overflow-y:scroll;
-    height:70%;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  
+html,
+body,
+#main-app {
+  height: 100%;
+}
+
+body {
+  background-color: #177a39;
+}
+
+.navbar-brand {
+  width: 25%;
+}
+
+a {
+  margin-right: 10px;
+  color: #fff;
+}
+
+h1 {
+  text-align: left;
+  float: left;
+}
+
+strong {
+  color: #fff;
+  font-size: 120%;
+}
+
+li {
+  word-wrap: break-word;
+}
+
+.navbar {
+  padding-right: 41.9%;
+}
+
+.navbar,
+.card-danger {
+  background-color: #db9a29;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+#top-row {
+  margin: 0 0 10px 0;
+  height: 330px
+}
+
+#bottom-row {
+  height: 330px;
+  margin: 0;
+}
+
+.col-md-5,
+.col-md-7 {
+  padding: 0;
+}
+
+.col-md-7 {
+  padding-right: 10px;
+}
+
+#trc1 {
+  height: 100%;
+}
+
+#trc2 {
+  height: 100%;
+}
+
+#brc1 {
+  height: 100%;
+}
+
+#brc2 {
+  height: 100%;
+}
+
+form input {
+  width: 80%;
+  margin-right: 2.083%;
+}
+
+form button {
+  width: 15%;
+  color: #fff;
+  background: #177a39;
+}
+
+form {
+  padding-left: 1.667%;
+  padding-right: 1.667%;
+  margin-left: 2.5%;
+}
+
+#messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#messages li {
+  padding: 5px 10px;
+}
+
+#messages li:nth-child(odd) {
+  background: #f9b640;
+}
+
+#chat {
+  height: 100%;
+}
+
+.card {
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.card-header,
+.card-footer {
+  height: 15%;
+}
+
+.card-block {
+  overflow-y: scroll;
+  height: 70%;
+}
