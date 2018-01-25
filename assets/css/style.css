@@ -1,105 +1,169 @@
- * { 
-  	margin: 0; 
-  	padding: 0; 
-  	box-sizing: border-box; 
-  }
-  html,body,#main-app{
-    height:100%;
-  }
-  body{
-    background-color: #177a39;
-  }
-  .navbar-brand{
-    width:25%;
-  }
-  a{
-    margin-right:10px;
-    color:#fff;
-  }
-  h1{
-    text-aligh:left;
-    float:left;
-  }
-  strong{
-    color:#fff;
-    font-size:120%;
-  }
-  li{
-    word-wrap: break-word;
-  }
-  .navbar{
-    padding-right:41.9%;
-  }
-  .navbar,.card-danger{
-    background-color:#db9a29;
-  }
-  .container-fluid{
-    padding:0;
-  }
-  #top-row{
-    margin:0 0 10px 0;
-    height:330px
-  }
-  #bottom-row{
-    height:330px;
-    margin:0;
-  }
-  .col-md-5,.col-md-7{
-    padding:0;
-  }
-  .col-md-7{
-    padding-right:10px;
-  }
-  #trc1{
-    height:100%;
-  }
-  #trc2{
-    height:100%;
-  }
-  #brc1{
-    height:100%;
-  }
-  #brc2{
-    height:100%;
-  }
-  form input {  
-  	width: 80%; 
-  	margin-right:2.083%; 
-  }
-  form button { 
-  	width: 15%;
-    color:#fff;
-  	background:#177a39; 
-  }
-  form{
-    padding-left:1.667%;
-    padding-right:1.667%;
-    margin-left:2.5%;
-  }
-  #messages { 
-  	list-style-type: none; 
-  	margin: 0; 
-  	padding: 0; 
-  }
-  #messages li { 
-  	padding: 5px 10px; 
-  }
-  #messages li:nth-child(odd) { 
-  	background: #f9b640; 
-  }
-  #chat{
-    height:100%;
-  }
-  .card{
-    height:100%;
-    margin-bottom:0;
-  }
-  .card-header,.card-footer{
-    height:15%;
-  }
-  .card-block{
-    overflow-y:scroll;
-    height:70%;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
 
-  
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+body {
+  background-color: #F0F0F0;
+}
+
+.navbar-brand {
+  width: 25%;
+}
+
+a {
+  margin-right: 10px;
+  color: #fff;
+}
+
+li {
+  word-wrap: break-word;
+}
+
+.navbar {
+  padding-right: 41.9%;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  height: 55px;
+  border-radius: 0;
+  background-color: #f7931a;
+}
+
+.section {
+  position: relative;
+  min-height: 350px;
+  margin-bottom: 25px;
+  border-radius: 0;
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.section-header {
+  font-size: 22px;
+  font-weight: bold;
+  padding: 10px 16px;
+}
+
+#m {
+  height: 35px;
+  border: 0;
+  border-bottom: 2px solid lightgrey;
+}
+
+#chat {
+  padding-bottom: 50px;
+}
+
+#messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#messages li {
+  padding: 5px 10px;
+}
+
+#messages li:nth-child(odd) {
+  background: #f9b640;
+}
+
+.send-message-wrapper {
+  position: absolute;
+  bottom: 15px;
+  width: 100%;
+}
+
+.chat-button {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  border: 0;
+  padding: 5px 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.chat-button:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+#message-display {
+  padding: 0;
+  max-height: 248px;
+  min-height: 248px;
+  overflow-y: scroll; 
+}
+
+form input {
+  width: 80%;
+  margin-right: 2.083%;
+}
+
+form button {
+  width: 15%;
+  color: #fff;
+  background: #177a39;
+}
+
+form {
+  padding-left: 1.667%;
+  padding-right: 1.667%;
+  margin-left: 2.5%;
+}
+
+#footer {
+  min-height: 300px;
+  background-color: #f7931a;
+}
+
+#footer .footer-brand {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.credits {
+  margin-top: 10px;
+}
+
+.dev-box {
+  text-align: center;
+  font-weight: bold;
+}
+
+.pro-box {
+  display: block;
+  position: relative;
+  width: 120px;
+  margin: 10px auto;
+  padding: 10px;
+  background-color: #24292e;
+  color: #FFFFFF;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition: all 0.2s ease-in-out;
+}
+
+.pro-box:hover {
+  text-decoration: none;
+  color: #FFFFFF;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.pro-box:hover:active {
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.pro-box .fa{
+  position: absolute;
+  left: 16px;
+  top: 15px;
+}
