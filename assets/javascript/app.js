@@ -8,7 +8,7 @@ $(function () {
     });
     socket.on('chat message', function(msg){
       hix.unshift(msg);
-      if(hix.length>6){hix.splice(-1);}
+      if(hix.length>10){hix.splice(-1);}
       $('#messages').empty();
       for(let i=0 ; i<hix.length ; i++){
           $('#messages').prepend($('<li>').text(hix[i]));

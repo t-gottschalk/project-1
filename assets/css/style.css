@@ -23,6 +23,9 @@
   strong{
     font-size:120%;
   }
+  li{
+    word-wrap: break-word;
+  }
   .navbar{
     padding-right:41.9%;
   }
@@ -94,6 +97,7 @@
     height:15%;
   }
   .card-block{
+    overflow:scroll;
     height:70%;
   }
 
