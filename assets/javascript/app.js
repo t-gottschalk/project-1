@@ -1,27 +1,3 @@
-var hix = []
-$(function () {
-  var socket = io();
-  $('form').submit(function () {
-    var newMessage = $('#m').val();
-    if (newMessage != '') {
-      socket.emit('chat message', newMessage);
-      $('#m').val('');
-    }
-
-    return false;
-  });
-  socket.on('chat message', function (msg) {
-    hix.unshift(msg);
-    if (hix.length > 10) {
-      hix.splice(-1);
-    }
-    $('#messages').empty();
-    for (let i = 0; i < hix.length; i++) {
-      $('#messages').prepend($('<li>').text(hix[i]));
-    }
-  });
-});
-
 var app = {
 
   priceHistoryModule : {
@@ -47,9 +23,41 @@ var app = {
 
   chatModule : {
 
+    socket : io(),
+
+    chatHistory : [],
+
     init: function () {
       console.log("chat module loaded");
+
+      $('form').submit(function () { // hook the chat form submit
+        var newMessage = $('#m').val();
+
+        if (newMessage != '') {
+          app.chatModule.socket.emit('chat message', newMessage);
+          $('#m').val('');
+        }
+    
+        return false;
+      });
+
+      app.chatModule.socket.on('chat message', function (msg) {
+        app.chatModule.chatHistory.unshift(msg);
+
+        if (app.chatModule.chatHistory.length > 10) {
+          app.chatModule.chatHistory.splice(-1);
+        }
+
+        $('#messages').empty();
+
+        for (let i = 0; i < app.chatModule.chatHistory.length; i++) {
+          $('#messages').prepend($('<li>').text(app.chatModule.chatHistory[i]));
+        }
+
+      });
+
     }
+
   },
 
   startup : function(){
