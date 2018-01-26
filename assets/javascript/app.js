@@ -40,9 +40,63 @@ var app = {
 
   newsModule : {
 
+    apiKey: apiKey,
+    baseURL: "https://newsapi.org/v2/everything?q=", 
+
+    topics: [
+      "bitcoin",
+      "ethereum",
+      "ripple",
+      "dogecoin"
+    ],
+
     init: function () {
+
       console.log("News module loaded");
+
+      let artObj = {};
+
+      app.newsModule.topics.forEach(function(item) {
+
+        const obj = app.newsModule.artGet(item);
+        console.log(obj, "single topic results");
+
+        Object.defineProperty(artObj, item, {
+          value: obj
+        });
+
+      });
+
+      console.log(artObj, "all topic results");
+
+      app.newsModule.artDisplay(artObj);
+
+    },
+
+    artGet: function(topic) {
+
+      const queryURL = app.newsModule.baseURL + topic + "$from=2018-01-18&to=2018-01-25&sortBy=popularity&pageSize=10&apiKey=" + app.newsModule.apiKey;
+      console.log(queryURL, "Query URL");
+
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      }).then(function(result) {
+
+        return result;
+
+      }).fail(function(err) {
+        throw err;
+      });
+
+    },
+
+    artDisplay: function() {
+
+
+
     }
+
   },
 
   chatModule : {
