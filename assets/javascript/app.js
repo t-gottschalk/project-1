@@ -1,5 +1,15 @@
 var app = {
 
+  userModule : {
+
+    username : '',
+
+    init: function(){
+      $('#welcome-modal').modal('show'); // open the modal
+      $('#welcome-modal').off('click'); // remove the background click event
+    }
+  },
+
   priceHistoryModule : {
 
     init: function () {
@@ -62,6 +72,7 @@ var app = {
 
   startup : function(){
 
+    this.userModule.init();
     this.priceHistoryModule.init();
     this.pollModule.init();
     this.newsModule.init();

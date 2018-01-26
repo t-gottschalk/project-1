@@ -53,7 +53,7 @@ li {
   padding: 10px 16px;
 }
 
-#m {
+#m, #nickname-input {
   height: 35px;
   border: 0;
   border-bottom: 2px solid lightgrey;
@@ -83,14 +83,16 @@ li {
   width: 100%;
 }
 
-.chat-button {
+button.accept {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   border: 0;
   padding: 5px 0;
   transition: all 0.2s ease-in-out;
+  color: #fff;
+  background: #177a39;
 }
 
-.chat-button:hover {
+button.accept:hover {
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
@@ -108,8 +110,6 @@ form input {
 
 form button {
   width: 15%;
-  color: #fff;
-  background: #177a39;
 }
 
 form {
@@ -166,4 +166,34 @@ form {
   position: absolute;
   left: 16px;
   top: 15px;
+}
+
+/* Modal Specific Styles */
+
+.modal-content {
+  border: none;
+  border-radius: 0px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.modal-header {
+  border-bottom: none;
+}
+
+.modal-title {
+  font-weight: bold;
+  display: block;
+  width: 100%;
+}
+
+#nickname-input {
+  width: 250px;
+}
+
+.modal-accept {
+  width: 90px;
+}
+
+.modal-footer {
+  border-top: none;
 }
