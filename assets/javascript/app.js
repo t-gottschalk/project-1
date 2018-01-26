@@ -1,5 +1,30 @@
 var app = {
 
+  userModule : {
+
+    username : localStorage.getItem('cryptoClash-name'),
+
+    init: function(){
+
+      if( !this.username ){ // if no username is saved
+        $('#welcome-modal').modal('show'); // open the modal
+        $('#welcome-modal').off('click'); // remove the background click event
+        $('.modal-accept').on('click' , function(){
+  
+          var input = $('#nickname-input').val().trim();
+  
+          if( input != '' ){ // check if nickname is not empty
+            app.userModule.username = input;
+            localStorage.setItem('cryptoClash-name' , input); // saving username
+            $('#welcome-modal').modal('hide');
+          }
+  
+        });
+      }
+
+    }
+  },
+
   priceHistoryModule : {
 
     init: function () {
@@ -62,6 +87,7 @@ var app = {
 
   startup : function(){
 
+    this.userModule.init();
     this.priceHistoryModule.init();
     this.pollModule.init();
     this.newsModule.init();
