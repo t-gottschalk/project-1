@@ -11,7 +11,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> <!-- Google Font -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.4/css/bootstrap.min.css"> <!-- BS4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> <!-- BS4 -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -24,6 +24,7 @@
             <a href="#">Ethereum</a>
             <a href="#">Ripple</a>
             <a href="#">Dogecoin</a>
+            <a href="crypto-compare.html" target="_blank">CryptoCompare</a>
         </span>
     </nav>
     <div class="container-fluid" id="main-app">
@@ -54,7 +55,7 @@
                     <div class="send-message-wrapper">
                         <form action="">
                             <input id="m" autocomplete="off" placeholder="Chat message" />
-                            <button class="chat-button">Send</button>
+                            <button class="accept chat-button">Send</button>
                         </form>
                     </div>
                 </div>
@@ -87,6 +88,23 @@
             </div>
         </div>
     </div>
+
+    <!-- Welcome Modal -->
+    <div class="modal fade" id="welcome-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Welcome to CryptoClash - Choose a nickname</h5>
+            </div>
+            <div class="modal-body">
+                <input id="nickname-input" type="text" autocomplete="off" placeholder="Nickname">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="accept modal-accept">Continue</button>
+            </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -95,6 +113,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script> <!--socket io-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.12.2/d3.min.js"></script><!-- D3 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script><!-- GSAP -->
+<script src="../API/MyAPI.js"></script>
 <script src="assets/javascript/app.js"></script>
 
 </html>
