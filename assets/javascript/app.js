@@ -10,15 +10,15 @@ var app = {
         $('#welcome-modal').modal('show'); // open the modal
         $('#welcome-modal').off('click'); // remove the background click event
         $('.modal-accept').on('click' , function(){
-  
+
           var input = $('#nickname-input').val().trim();
-  
+
           if( input != '' ){ // check if nickname is not empty
             app.userModule.username = input;
             localStorage.setItem('cryptoClash-name' , input); // saving username
             $('#welcome-modal').modal('hide');
           }
-  
+
         });
       }
 
@@ -45,10 +45,10 @@ var app = {
     baseURL: "https://newsapi.org/v2/everything?q=", 
 
     topics: [
-      "bitcoin",
-      "ethereum",
-      "ripple",
-      "dogecoin"
+    "bitcoin",
+    "ethereum",
+    "ripple",
+    "dogecoin"
     ],
 
     // stores articles pulled from ajax call as properties under the topic name
@@ -131,51 +131,47 @@ var app = {
 
     socket : io(),
 
-    chatHistory : [],
-
     init: function () {
-      console.log("chat module loaded");
-
       $('form').submit(function () { // hook the chat form submit
         var newMessage = $('#m').val();
 
         if (newMessage != '') {
-          app.chatModule.socket.emit('chat message', newMessage);
+          newMessage = app.userModule.username + ": " + newMessage;
+          app.chatModule.socket.emit('chat message', newMessage); 
           $('#m').val('');
         }
-    
+
         return false;
       });
 
-      app.chatModule.socket.on('chat message', function (msg) {
-        app.chatModule.chatHistory.unshift(msg);
+      //get all messages and populate message history
+      $.get( "http://localhost:8080/api/history/", function( response ) {
+        return response }).done(function( data ){
+          for( var i = 0; i < data.messages.length; i++ ){
+            $('#messages').append($('<li>').text( data.messages[i] ));
+          }
+          $('#message-display').scrollTop(9999999);
+        })
 
-        if (app.chatModule.chatHistory.length > 10) {
-          app.chatModule.chatHistory.splice(-1);
-        }
+        app.chatModule.socket.on('chat message', function (msg) {
+          $('#messages').append($('<li>').text(msg));
+          $('#message-display').scrollTop(9999999);
+        });
 
-        $('#messages').empty();
+      }
 
-        for (let i = 0; i < app.chatModule.chatHistory.length; i++) {
-          $('#messages').prepend($('<li>').text(app.chatModule.chatHistory[i]));
-        }
+    },
 
-      });
+    startup : function(){
+
+      this.userModule.init();
+      this.priceHistoryModule.init();
+      this.pollModule.init();
+      this.newsModule.init();
+      this.chatModule.init();
 
     }
 
-  },
-
-  startup : function(){
-
-    this.userModule.init();
-    this.priceHistoryModule.init();
-    this.pollModule.init();
-    this.newsModule.init();
-    this.chatModule.init();
-
   }
-
-}
 
 app.startup(); // main entry point of this application
