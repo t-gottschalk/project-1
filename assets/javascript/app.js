@@ -102,8 +102,6 @@ var app = {
     chatHistory : [],
 
     init: function () {
-      console.log("chat module loaded");
-
       $('form').submit(function () { // hook the chat form submit
         var newMessage = $('#m').val();
 
@@ -115,6 +113,14 @@ var app = {
 
         return false;
       });
+
+      //get all messages and populate message history
+      $.get( "http://localhost:8080/api/history/", function( response ) {
+        return response }).done(function( data ){
+          for( var i = 0; i < data.messages.length; i++ ){
+            $('#messages').prepend($('<li>').text( data.messages[i] ));
+          }
+        })
 
       app.chatModule.socket.on('chat message', function (msg) {
         app.chatModule.chatHistory.unshift(msg);
