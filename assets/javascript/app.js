@@ -112,14 +112,14 @@ var app = {
           app.chatModule.socket.emit('chat message', newMessage); 
           $('#m').val('');
         }
-    
+
         return false;
       });
 
       app.chatModule.socket.on('chat message', function (msg) {
         app.chatModule.chatHistory.unshift(msg);
 
-        if (app.chatModule.chatHistory.length > 10) {
+        if (app.chatModule.chatHistory.length > 50) {
           app.chatModule.chatHistory.splice(-1);
         }
 
