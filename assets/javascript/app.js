@@ -108,7 +108,8 @@ var app = {
         var newMessage = $('#m').val();
 
         if (newMessage != '') {
-          app.chatModule.socket.emit('chat message', newMessage);
+          newMessage = app.userModule.username + ": " + newMessage;
+          app.chatModule.socket.emit('chat message', newMessage); 
           $('#m').val('');
         }
 
