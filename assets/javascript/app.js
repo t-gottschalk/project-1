@@ -122,17 +122,18 @@ var app = {
           }
         })
 
+      $('#message-display').scrollTop(9999999);
+
       app.chatModule.socket.on('chat message', function (msg) {
         app.chatModule.chatHistory.unshift(msg);
-
+        
         if (app.chatModule.chatHistory.length > 50) {
           app.chatModule.chatHistory.splice(-1);
         }
-
-        $('#messages').empty();
-
+        
         for (let i = 0; i < app.chatModule.chatHistory.length; i++) {
-          $('#messages').prepend($('<li>').text(app.chatModule.chatHistory[i]));
+          $('#messages').append($('<li>').text(app.chatModule.chatHistory[i])); 
+          $('#message-display').scrollTop(9999999);
         }
 
       });
