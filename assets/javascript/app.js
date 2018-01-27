@@ -50,26 +50,19 @@ var app = {
       "dogecoin"
     ],
 
+    articles: {},
+
     init: function () {
 
       console.log("News module loaded");
 
-      let artObj = {};
-
       app.newsModule.topics.forEach(function(item) {
 
-        const obj = app.newsModule.artGet(item);
-        console.log(obj, "single topic results");
-
-        Object.defineProperty(artObj, item, {
-          value: obj
-        });
+        app.newsModule.artGet(item);
 
       });
 
-      console.log(artObj, "all topic results");
-
-      app.newsModule.artDisplay(artObj);
+      console.log(app.newsModule.articles, "all topic results");
 
     },
 
@@ -83,7 +76,11 @@ var app = {
         method: "GET"
       }).then(function(result) {
 
-        return result;
+        const x = result.articles;
+
+        Object.defineProperty(app.newsModule.articles, topic, {
+          value: x
+        });
 
       }).fail(function(err) {
         throw err;
@@ -92,8 +89,6 @@ var app = {
     },
 
     artDisplay: function() {
-
-
 
     }
 
