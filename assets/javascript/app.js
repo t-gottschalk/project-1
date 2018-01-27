@@ -1,28 +1,29 @@
-var hix = []
-$(function () {
-  var socket = io();
-  $('form').submit(function () {
-    var newMessage = $('#m').val();
-    if (newMessage != '') {
-      socket.emit('chat message', newMessage);
-      $('#m').val('');
-    }
-
-    return false;
-  });
-  socket.on('chat message', function (msg) {
-    hix.unshift(msg);
-    if (hix.length > 10) {
-      hix.splice(-1);
-    }
-    $('#messages').empty();
-    for (let i = 0; i < hix.length; i++) {
-      $('#messages').prepend($('<li>').text(hix[i]));
-    }
-  });
-});
-
 var app = {
+
+  userModule : {
+
+    username : localStorage.getItem('cryptoClash-name'),
+
+    init: function(){
+
+      if( !this.username ){ // if no username is saved
+        $('#welcome-modal').modal('show'); // open the modal
+        $('#welcome-modal').off('click'); // remove the background click event
+        $('.modal-accept').on('click' , function(){
+  
+          var input = $('#nickname-input').val().trim();
+  
+          if( input != '' ){ // check if nickname is not empty
+            app.userModule.username = input;
+            localStorage.setItem('cryptoClash-name' , input); // saving username
+            $('#welcome-modal').modal('hide');
+          }
+  
+        });
+      }
+
+    }
+  },
 
   priceHistoryModule : {
 
@@ -96,13 +97,46 @@ var app = {
 
   chatModule : {
 
+    socket : io(),
+
+    chatHistory : [],
+
     init: function () {
       console.log("chat module loaded");
+
+      $('form').submit(function () { // hook the chat form submit
+        var newMessage = $('#m').val();
+
+        if (newMessage != '') {
+          app.chatModule.socket.emit('chat message', newMessage);
+          $('#m').val('');
+        }
+    
+        return false;
+      });
+
+      app.chatModule.socket.on('chat message', function (msg) {
+        app.chatModule.chatHistory.unshift(msg);
+
+        if (app.chatModule.chatHistory.length > 10) {
+          app.chatModule.chatHistory.splice(-1);
+        }
+
+        $('#messages').empty();
+
+        for (let i = 0; i < app.chatModule.chatHistory.length; i++) {
+          $('#messages').prepend($('<li>').text(app.chatModule.chatHistory[i]));
+        }
+
+      });
+
     }
+
   },
 
   startup : function(){
 
+    this.userModule.init();
     this.priceHistoryModule.init();
     this.pollModule.init();
     this.newsModule.init();

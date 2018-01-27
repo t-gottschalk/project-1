@@ -4,7 +4,7 @@
   "description": "cryptocurrency dashboard",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/RPaez09/project-1#readme",
   "dependencies": {
     "express": "^4.16.2",
+    "mongodb": "^3.0.1",
     "socket.io": "^2.0.4"
   }
 }

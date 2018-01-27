@@ -23,8 +23,8 @@
 	• Real-time Chat Discussion
 	
 * APIs to be used
-	• Reddit
-	• Alpha Vantage API
+	• News API
+	• CryptoCompare
 	• TinyURL
 	• D3 Visualization
 
