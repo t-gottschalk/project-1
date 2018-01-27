@@ -10,15 +10,15 @@ var app = {
         $('#welcome-modal').modal('show'); // open the modal
         $('#welcome-modal').off('click'); // remove the background click event
         $('.modal-accept').on('click' , function(){
-  
+
           var input = $('#nickname-input').val().trim();
-  
+
           if( input != '' ){ // check if nickname is not empty
             app.userModule.username = input;
             localStorage.setItem('cryptoClash-name' , input); // saving username
             $('#welcome-modal').modal('hide');
           }
-  
+
         });
       }
 
@@ -45,10 +45,10 @@ var app = {
     baseURL: "https://newsapi.org/v2/everything?q=", 
 
     topics: [
-      "bitcoin",
-      "ethereum",
-      "ripple",
-      "dogecoin"
+    "bitcoin",
+    "ethereum",
+    "ripple",
+    "dogecoin"
     ],
 
     articles: {},
@@ -99,8 +99,6 @@ var app = {
 
     socket : io(),
 
-    chatHistory : [],
-
     init: function () {
       $('form').submit(function () { // hook the chat form submit
         var newMessage = $('#m').val();
@@ -118,40 +116,30 @@ var app = {
       $.get( "http://localhost:8080/api/history/", function( response ) {
         return response }).done(function( data ){
           for( var i = 0; i < data.messages.length; i++ ){
-            $('#messages').prepend($('<li>').text( data.messages[i] ));
+            $('#messages').append($('<li>').text( data.messages[i] ));
           }
+          $('#message-display').scrollTop(9999999);
         })
 
-      $('#message-display').scrollTop(9999999);
-
-      app.chatModule.socket.on('chat message', function (msg) {
-        app.chatModule.chatHistory.unshift(msg);
-        
-        if (app.chatModule.chatHistory.length > 50) {
-          app.chatModule.chatHistory.splice(-1);
-        }
-        
-        for (let i = 0; i < app.chatModule.chatHistory.length; i++) {
-          $('#messages').append($('<li>').text(app.chatModule.chatHistory[i])); 
+        app.chatModule.socket.on('chat message', function (msg) {
+          $('#messages').append($('<li>').text(msg));
           $('#message-display').scrollTop(9999999);
-        }
+        });
 
-      });
+      }
+
+    },
+
+    startup : function(){
+
+      this.userModule.init();
+      this.priceHistoryModule.init();
+      this.pollModule.init();
+      this.newsModule.init();
+      this.chatModule.init();
 
     }
 
-  },
-
-  startup : function(){
-
-    this.userModule.init();
-    this.priceHistoryModule.init();
-    this.pollModule.init();
-    this.newsModule.init();
-    this.chatModule.init();
-
   }
-
-}
 
 app.startup(); // main entry point of this application
