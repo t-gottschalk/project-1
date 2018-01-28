@@ -42,7 +42,7 @@ app.get('/api/history', function(req,res){
 			console.log(msg);
 			res.json({"messages":msg});
 		}
-	}).sort({_id:1}).limit(50);
+	}).sort({_id:-1}).limit(50);
 });
 
 
