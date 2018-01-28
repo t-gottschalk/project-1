@@ -9,7 +9,7 @@ var io = require('socket.io')(http);
 var Message = require('./models/Message.js');
 
 // Database configuration with mongoose
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Messages");
+mongoose.connect(mongodb://team:team@ds117878.mlab.com:17878/heroku_hc9dctcq || "mongodb://localhost/Messages");
 var db = mongoose.connection;
 
 // Show any mongoose errors
