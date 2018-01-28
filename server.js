@@ -9,7 +9,7 @@ var io = require('socket.io')(http);
 var Message = require('./models/Message.js');
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://team:test@ds117878.mlab.com:17878/heroku_hc9dctcq" || "mongodb://localhost/Messages");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/Messages");
 var db = mongoose.connection;
 
 // Show any mongoose errors
@@ -78,7 +78,7 @@ io.on('connection', function(socket){
 	});
 });
 
-http.listen(8080, function(){
+http.listen(process.env.MONGODB_URI || 8080, function(){
 	console.log('listening on *:8080');
 });
 
