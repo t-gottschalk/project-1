@@ -118,12 +118,12 @@ var app = {
           for( var i = 0; i < data.messages.length; i++ ){
             $('#messages').append($('<li>').text( data.messages[i] ));
           }
-          $('#message-display').scrollTop(9999999);
+          $('#message-display').scrollTop($('#message-display').height());
         })
 
         app.chatModule.socket.on('chat message', function (msg) {
           $('#messages').append($('<li>').text(msg));
-          $('#message-display').scrollTop(9999999);
+          $('#message-display').scrollTop($('#message-display').height());
         });
 
       }
