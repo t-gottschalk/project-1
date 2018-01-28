@@ -30,17 +30,12 @@ app.get('/', function(req, res){
 	res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/api/history', function(req,res){
+app.get('/api/messages', function(req,res){
 	Message.find({}, function(err, data) {
 		if(err) {
 			console.log('Error:', err);
 		} else {
-			var msg=[];
-            data.forEach( function(obj){
-                msg.push(obj.message);
-            });
-			console.log(msg);
-			res.json({"messages":msg});
+			res.json( data );
 		}
 	}).sort({_id:1}).limit(50);
 });
@@ -56,7 +51,7 @@ io.on('connection', function(socket){
 
 		// Using our Message model, create a new entry
      // This effectively passes the result object to the entry
-     var message = new Message({message: msg});
+     var message = new Message( msg );
 
      // Now, save that entry to the db
      message.save(function(err, doc) {
