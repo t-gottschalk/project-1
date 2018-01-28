@@ -6,7 +6,9 @@ var path = require('path')
 var http = require('http').Server(app);
 var router = express.Router()
 var io = require('socket.io')(http);
+
 var Message = require('./models/Message.js');
+var Price = require('./models/Price.js');
 
 // Database configuration with mongoose
 mongoose.connect("mongodb://localhost/Messages");
@@ -22,10 +24,10 @@ db.once("open", function() {
  console.log("Mongoose connection successful.");
 });
 
-//set static directory
+// Set static directory
 app.use('/assets',express.static(path.join(__dirname, '/assets')));
 
-
+// Routes
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/index.html');
 });
@@ -38,6 +40,16 @@ app.get('/api/messages', function(req,res){
 			res.json( data );
 		}
 	}).sort({_id:1}).limit(50);
+});
+
+app.get('/api/history/:currency' , function(req,res){
+	Price.find( { currency : req.params.currency }, function(err, data){
+		if(err) {
+			console.log('Error:', err);
+		} else {
+			res.json( data );
+		}
+	} ).sort({ date : 1 }).limit(7);
 });
 
 
