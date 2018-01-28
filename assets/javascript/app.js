@@ -99,6 +99,16 @@ var app = {
 
     socket : io(),
 
+    parseMessage : function( msg ){
+      var arr = msg.split(':');
+      
+      var replacement = '<strong>' + arr[0] + ':</strong>';
+
+      arr.splice( 0 , 1 , replacement );
+
+      return arr.join('');
+    },
+
     init: function () {
       $('form').submit(function () { // hook the chat form submit
         var newMessage = $('#m').val();
@@ -116,13 +126,13 @@ var app = {
       $.get( "http://localhost:8080/api/history/", function( response ) {
         return response }).done(function( data ){
           for( var i = 0; i < data.messages.length; i++ ){
-            $('#messages').append($('<li>').text( data.messages[i] ));
+            $('#messages').append($('<li>').html( app.chatModule.parseMessage( data.messages[i] ) ));
           }
           $('#message-display').scrollTop(9999999);
         })
 
         app.chatModule.socket.on('chat message', function (msg) {
-          $('#messages').append($('<li>').text(msg));
+          $('#messages').append($('<li>').html( app.chatModule.parseMessage( msg ) ));
           $('#message-display').scrollTop(9999999);
         });
 
