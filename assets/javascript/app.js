@@ -116,13 +116,13 @@ var app = {
       $.get( "http://hidden-savannah-78793.herokuapp.com/api/history", function( response ) {
         return response }).done(function( data ){
           for( var i = 0; i < data.messages.length; i++ ){
-            $('#messages').append($('<li>').text( data.messages[i] ));
+            $('#messages').prepend($('<li>').text( data.messages[i] ));
           }
           $('#message-display').scrollTop(9999999);
         })
 
         app.chatModule.socket.on('chat message', function (msg) {
-          $('#messages').append($('<li>').text(msg));
+          $('#messages').prepend($('<li>').text(msg));
           $('#message-display').scrollTop(9999999);
         });
 
