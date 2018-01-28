@@ -113,7 +113,7 @@ var app = {
       });
 
       //get all messages and populate message history
-      $.get( "http://localhost:8080/api/history/", function( response ) {
+      $.get( "http://hidden-savannah-78793.herokuapp.com/api/history", function( response ) {
         return response }).done(function( data ){
           for( var i = 0; i < data.messages.length; i++ ){
             $('#messages').append($('<li>').text( data.messages[i] ));
