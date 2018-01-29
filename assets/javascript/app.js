@@ -51,6 +51,7 @@ var app = {
     "dogecoin"
     ],
 
+    // stores articles pulled from ajax call as properties under the topic name
     articles: {},
 
     init: function () {
@@ -64,6 +65,14 @@ var app = {
       });
 
       console.log(app.newsModule.articles, "all topic results");
+
+      // listens for topic link selection, then renders appropriate articles
+      $(".topic_tab").on("click", function() {
+
+        topic = $(this).text().toLowerCase();
+        app.newsModule.artDisplay(topic);
+
+      });
 
     },
 
@@ -83,13 +92,36 @@ var app = {
           value: x
         });
 
+
+
       }).fail(function(err) {
         throw err;
       });
 
     },
 
-    artDisplay: function() {
+    artDisplay: function(x) {
+
+      console.log(x, "selected");
+      const arrX = app.newsModule.articles[x];
+      console.log(arrX, "articles grabbed");
+
+      $("#articles").empty();
+
+      arrX.forEach(function(article) {
+
+        let div = $("<div>").addClass("container article"),
+            h4 = $("<h4>").text(article.title),
+            img = $("<img>").addClass("img_article").attr("src", article.urlToImage),
+            pAuth = $("<p>").text(article.author),
+            pBod = $("<p>").html('<em>' + article.description + '</em>'),
+            a = $("<a>").addClass("art_link").attr("href", article.url).text("Link to article");
+
+        div.append(h4).append(img).append(pAuth).append(pBod).append(a);
+
+        $("#articles").append(div);
+
+      }); 
 
     }
 
