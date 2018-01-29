@@ -122,7 +122,7 @@ var app = {
         })
 
         app.chatModule.socket.on('chat message', function (msg) {
-          $('#messages').prepend($('<li>').text(msg));
+          $('#messages').append($('<li>').text(msg));
           $('#message-display').scrollTop(9999999);
         });
 
