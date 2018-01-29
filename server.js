@@ -22,6 +22,12 @@ db.once("open", function() {
  console.log("Mongoose connection successful.");
 });
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 //set static directory
 app.use('/assets',express.static(path.join(__dirname, '/assets')));
 
@@ -33,7 +39,7 @@ app.get('/crypto-compare', function(req,res){
 	res.sendFile(__dirname + '/crypto-compare.html')
 });
 
-app.get('/api/history', function(req,res){
+app.get('/api/history', function(req,res,next){
 	Message.find({}, function(err, data) {
 		if(err) {
 			console.log('Error:', err);
