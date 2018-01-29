@@ -29,6 +29,9 @@ app.use('/assets',express.static(path.join(__dirname, '/assets')));
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/index.html');
 });
+app.get('/crypto-compare', function(req,res){
+	res.sendFile(__dirname + '/crypto-compare.html')
+});
 
 app.get('/api/history', function(req,res){
 	Message.find({}, function(err, data) {
