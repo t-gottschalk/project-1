@@ -15,7 +15,7 @@ var Message = require('./models/Message.js');
 var Price = require('./models/Price.js');
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/Messages");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://team:test@ds117878.mlab.com:17878/heroku_hc9dctcq");
 var db = mongoose.connection;
 
 // Show any mongoose errors
@@ -28,6 +28,13 @@ db.once("open", function() {
  console.log("Mongoose connection successful.");
 });
 
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // Set static directory
 app.use('/assets',express.static(path.join(__dirname, '/assets')));
 
@@ -35,15 +42,19 @@ app.use('/assets',express.static(path.join(__dirname, '/assets')));
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/index.html');
 });
+app.get('/crypto-compare', function(req,res){
+	res.sendFile(__dirname + '/crypto-compare.html')
+});
 
-app.get('/api/messages', function(req,res){
+
+app.get('/api/messages', function(req,res,next){
 	Message.find({}, function(err, data) {
 		if(err) {
 			console.log('Error:', err);
 		} else {
 			res.json( data );
 		}
-	}).sort({_id:1}).limit(50);
+	}).sort({_id:-1}).limit(50);
 });
 
 app.get('/api/history/:currency' , function(req,res){
@@ -89,7 +100,7 @@ io.on('connection', function(socket){
 	});
 });
 
-http.listen(8080, function(){
+http.listen(process.env.PORT  || 8080, function(){
 	console.log('listening on *:8080');
 });
 

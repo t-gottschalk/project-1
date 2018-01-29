@@ -153,10 +153,10 @@ var app = {
       });
 
       //get all messages and populate message history
-      $.get( "http://localhost:8080/api/messages/", function( response ) {
+      $.get( "http://hidden-savannah-78793.herokuapp.com/api/messages/", function( response ) {
         return response }).done(function( data ){
           for( var i = 0; i < data.length; i++ ){
-            $('#messages').append($('<li>').html( app.chatModule.parseMessage( data[i] ) ));
+            $('#messages').prepend($('<li>').html( app.chatModule.parseMessage( data[i] ) ));
           }
           $('#message-display').scrollTop(9999999);
         })
