@@ -6,7 +6,13 @@ var path = require('path')
 var http = require('http').Server(app);
 var router = express.Router()
 var io = require('socket.io')(http);
+
+// Utils
+var priceHistory = require('./helpers/priceHistory');
+
+// Models
 var Message = require('./models/Message.js');
+var Price = require('./models/Price.js');
 
 // Database configuration with mongoose
 mongoose.connect("mongodb://localhost/Messages");
@@ -22,27 +28,32 @@ db.once("open", function() {
  console.log("Mongoose connection successful.");
 });
 
-//set static directory
+// Set static directory
 app.use('/assets',express.static(path.join(__dirname, '/assets')));
 
-
+// Routes
 app.get('/', function(req, res){
 	res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/api/history', function(req,res){
+app.get('/api/messages', function(req,res){
 	Message.find({}, function(err, data) {
 		if(err) {
 			console.log('Error:', err);
 		} else {
-			var msg=[];
-            data.forEach( function(obj){
-                msg.push(obj.message);
-            });
-			console.log(msg);
-			res.json({"messages":msg});
+			res.json( data );
 		}
 	}).sort({_id:1}).limit(50);
+});
+
+app.get('/api/history/:currency' , function(req,res){
+	Price.find( { currency : req.params.currency }, function(err, data){
+		if(err) {
+			console.log('Error:', err);
+		} else {
+			res.json( data );
+		}
+	} ).sort({ date : -1 }).limit(7);
 });
 
 
@@ -56,7 +67,7 @@ io.on('connection', function(socket){
 
 		// Using our Message model, create a new entry
      // This effectively passes the result object to the entry
-     var message = new Message({message: msg});
+     var message = new Message( msg );
 
      // Now, save that entry to the db
      message.save(function(err, doc) {

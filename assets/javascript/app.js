@@ -131,12 +131,20 @@ var app = {
 
     socket : io(),
 
+    parseMessage : function( msg ){
+      return '<strong>'+ msg.name +':</strong> ' + msg.message
+    },
+
     init: function () {
       $('form').submit(function () { // hook the chat form submit
         var newMessage = $('#m').val();
 
         if (newMessage != '') {
-          newMessage = app.userModule.username + ": " + newMessage;
+          newMessage = 
+          { 
+            'name' : app.userModule.username, 
+            'message' : newMessage
+          }
           app.chatModule.socket.emit('chat message', newMessage); 
           $('#m').val('');
         }
@@ -145,16 +153,16 @@ var app = {
       });
 
       //get all messages and populate message history
-      $.get( "http://localhost:8080/api/history/", function( response ) {
+      $.get( "http://localhost:8080/api/messages/", function( response ) {
         return response }).done(function( data ){
-          for( var i = 0; i < data.messages.length; i++ ){
-            $('#messages').append($('<li>').text( data.messages[i] ));
+          for( var i = 0; i < data.length; i++ ){
+            $('#messages').append($('<li>').html( app.chatModule.parseMessage( data[i] ) ));
           }
           $('#message-display').scrollTop(9999999);
         })
 
         app.chatModule.socket.on('chat message', function (msg) {
-          $('#messages').append($('<li>').text(msg));
+          $('#messages').append($('<li>').html( app.chatModule.parseMessage( msg ) ));
           $('#message-display').scrollTop(9999999);
         });
 
