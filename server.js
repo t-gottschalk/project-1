@@ -57,7 +57,7 @@ app.get('/api/messages', function(req,res,next){
 	}).sort({_id:-1}).limit(50);
 });
 
-app.get('/api/history/:currency' , function(req,res,next){
+app.get('/api/history/:currency' , function(req,res){
 	Price.find( { currency : req.params.currency }, function(err, data){
 		if(err) {
 			console.log('Error:', err);
