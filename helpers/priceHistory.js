@@ -48,14 +48,16 @@ for( var i = 0; i < 6; i++ ){ // populate the last week array
     lastWeek.push(unixTime);
 }
 
-for( var j = 0; j < currencies.length; j++ ){ // loop through currencies
-    var currentTicker = currencies[j]
+var currencyIndex = 0;
+var fetchInterval = setInterval( function(){  // loop through currencies at an interval due to API request limits
 
+    var currentTicker = currencies[currencyIndex]
+    
     var prices = Price.find( { currency : currentTicker }, function(err, data){ // get the newest price
         if(err) {
-           console.log('Error: ' , err); 
+            console.log('Error: ' , err); 
         } else {
-
+            
             if( data.length === 0 ){ // if no price history is found
                 console.log('No prices found for: ' + this + ' fetching a new set from API' );
                 fetchPrices( this , 6 ); // fetch and save all prices
@@ -63,19 +65,23 @@ for( var j = 0; j < currencies.length; j++ ){ // loop through currencies
                 priceDate = data[0]._doc.date; // get the date of the returned newest price
                 
                 var startFrom = ( lastWeek.indexOf( priceDate ) - 1); // find the index to start fetching prices from
-
+                
                 if( startFrom >= 0 ){
                     fetchPrices( this , startFrom );
                 } else {
                     console.log('all prices for '+ this +' are up to date');
                 }
-
+                
             }
-
+            
         }
     }.bind( currentTicker ) ).sort({ date : -1 }).limit(1); // bind the current ticker symbol
+    
+    if( currencyIndex === currencies.length-1 ){ clearInterval( fetchInterval ); } // clear the interval
 
-} 
+    currencyIndex++;
+} ,1000);
+
 
 module.exports = {
     lastWeek : lastWeek
