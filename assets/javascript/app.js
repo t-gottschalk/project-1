@@ -78,7 +78,10 @@ var app = {
 
     artGet: function(topic) {
 
-      const queryURL = app.newsModule.baseURL + topic + "$from=2018-01-18&to=2018-01-25&sortBy=popularity&pageSize=10&apiKey=" + app.newsModule.apiKey;
+      const fromDate = moment().format("YYYY-MM-DD"),
+            toDate = moment().subtract(7, "days").format("YYYY-MM-DD");
+
+      const queryURL = app.newsModule.baseURL + topic + "$from=" + fromDate + "&to=" + toDate + "&sortBy=popularity&pageSize=10&apiKey=" + app.newsModule.apiKey;
       console.log(queryURL, "Query URL");
 
       $.ajax({
@@ -115,13 +118,16 @@ var app = {
             img = $("<img>").addClass("img_article").attr("src", article.urlToImage),
             pAuth = $("<p>").text(article.author),
             pBod = $("<p>").html('<em>' + article.description + '</em>'),
-            a = $("<a>").addClass("art_link").attr("href", article.url).text("Link to article");
+            a = $("<a>").addClass("art_link").attr("href", article.url).attr("target", "_blank").text("Link to article");
 
         div.append(h4).append(img).append(pAuth).append(pBod).append(a);
 
         $("#articles").append(div);
 
       }); 
+
+      let pSrc = $("<p>").html("<em>Articles provided by Newsapi.org</em>");
+      $("#articles").append(pSrc);
 
     }
 
