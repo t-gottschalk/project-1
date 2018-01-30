@@ -67,7 +67,7 @@ var app = {
       console.log(app.newsModule.articles, "all topic results");
 
       // listens for topic link selection, then renders appropriate articles
-      $(".topic_tab").on("click", function() {
+      $(".topic-tab").on("click", function() {
 
         topic = $(this).text().toLowerCase();
         app.newsModule.artDisplay(topic);
