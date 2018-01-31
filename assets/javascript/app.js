@@ -89,7 +89,7 @@ var app = {
       $('.topic-tab').on('click' , function(e){
         var ticker = $(e.target).attr('data-coin');
         app.priceHistoryModule.activeCurrency = ticker;
-        app.priceHistoryModule.renderPrices();
+        app.priceHistoryModule.getPrices();
       });
     },
 
