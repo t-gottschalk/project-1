@@ -27,39 +27,44 @@ var app = {
 
   priceHistoryModule : {
 
-    getPrices: function( ticker ){
+    activeCurrency: 'BTC',
 
-      var queryURL = 'http://localhost:8080/api/history/'+ ticker;
+    data: '',
+
+    getPrices: function( ){
+
+      var queryURL = 'http://localhost:8080/api/history/'+ this.activeCurrency;
 
       $.ajax({
         url: queryURL,
         method: "GET"
       }).then(function(result) {
 
-      app.priceHistoryModule.renderPrices( ticker, result );
+      app.priceHistoryModule.data = result;
+      app.priceHistoryModule.renderPrices();
 
       }).fail(function(err) {
         throw err;
       });
     },
 
-    renderPrices: function( ticker, data ){
+    renderPrices: function( ){
       var chartLine = {
         x: [],
         y: [],
         type: 'scatter'
       };
 
-      for( var i = 0; i < data.length; i++ ){
-        var date = moment.unix( data[i].date );
+      for( var i = 0; i < this.data.length; i++ ){
+        var date = moment.unix( this.data[i].date );
         chartLine.x.push( date.format('YYYY-M-D') );
-        chartLine.y.push( data[i].price );
+        chartLine.y.push( this.data[i].price );
       }
 
       var data = [chartLine]
 
       var layout = {
-        title: ticker + " prices in the last week",
+        title: this.activeCurrency + " prices in the last week",
         showlegend: false,
         height: 290,
         autosize: true,
@@ -76,6 +81,10 @@ var app = {
 
     init: function () {
       this.getPrices('BTC');
+
+      $(window).on('resize' , function(){
+        app.priceHistoryModule.renderPrices();
+      })
     },
 
 
