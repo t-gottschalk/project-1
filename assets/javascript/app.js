@@ -35,13 +35,38 @@ var app = {
   pollModule : {
 
     init: function () {
-      console.log("Poll Module loaded");
+
+      var fbConfig = {
+        apiKey: apiKey.firebase,
+        authDomain: "test-project-59866.firebaseapp.com",
+        databaseURL: "https://test-project-59866.firebaseio.com",
+        projectId: "test-project-59866",
+        storageBucket: "test-project-59866.appspot.com",
+        messagingSenderId: "766361558341"
+      };
+      firebase.initializeApp(fbConfig);
+      var db = firebase.database();
+      var pollState;
+      db.ref().on('value',function(snapshot){
+        pollState = snapshot.val();
+        console.log(pollState);
+      });
+      $('#pollForm').submit(function(event){
+        event.preventDefault;
+        var vote = $('input[name=vote]:checked', this).val();
+        console.log(vote);
+        pollState[vote]++;
+        db.ref().set(pollState);
+        this.hide();
+      });
+
     }
+    
   },
 
   newsModule : {
 
-    apiKey: apiKey,
+    apiKey: apiKey.news,
     baseURL: "https://newsapi.org/v2/everything?q=", 
 
     topics: [
@@ -111,11 +136,11 @@ var app = {
       arrX.forEach(function(article) {
 
         let div = $("<div>").addClass("container article"),
-            h4 = $("<h4>").text(article.title),
-            img = $("<img>").addClass("img_article").attr("src", article.urlToImage),
-            pAuth = $("<p>").text(article.author),
-            pBod = $("<p>").html('<em>' + article.description + '</em>'),
-            a = $("<a>").addClass("art_link").attr("href", article.url).text("Link to article");
+        h4 = $("<h4>").text(article.title),
+        img = $("<img>").addClass("img_article").attr("src", article.urlToImage),
+        pAuth = $("<p>").text(article.author),
+        pBod = $("<p>").html('<em>' + article.description + '</em>'),
+        a = $("<a>").addClass("art_link").attr("href", article.url).text("Link to article");
 
         div.append(h4).append(img).append(pAuth).append(pBod).append(a);
 
@@ -136,7 +161,8 @@ var app = {
     },
 
     init: function () {
-      $('form').submit(function () { // hook the chat form submit
+      $('#chatForm').submit(function (event) { // hook the chat form submit
+        event.preventDefault;
         var newMessage = $('#m').val();
 
         if (newMessage != '') {
