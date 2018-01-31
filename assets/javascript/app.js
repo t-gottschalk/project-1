@@ -120,15 +120,11 @@ var app = {
 
     init: function () {
 
-      console.log("News module loaded");
-
       app.newsModule.topics.forEach(function(item) {
 
         app.newsModule.artGet(item);
 
       });
-
-      console.log(app.newsModule.articles, "all topic results");
 
       // listens for topic link selection, then renders appropriate articles
       $(".topic-tab").on("click", function() {
@@ -146,7 +142,6 @@ var app = {
             fromDate = moment().subtract(12, "days").format("YYYY-MM-DD");
 
       const queryURL = app.newsModule.baseURL + topic + "$from=" + fromDate + "&to=" + toDate + "&sortBy=popularity&pageSize=10&apiKey=" + app.newsModule.apiKey;
-      console.log(queryURL, "Query URL");
 
       $.ajax({
         url: queryURL,
@@ -169,9 +164,7 @@ var app = {
 
     artDisplay: function(x) {
 
-      console.log(x, "selected");
       const arrX = app.newsModule.articles[x];
-      console.log(arrX, "articles grabbed");
 
       $("#articles").empty();
 
