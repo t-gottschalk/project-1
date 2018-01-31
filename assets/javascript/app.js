@@ -51,13 +51,14 @@ var app = {
       };
 
       for( var i = 0; i < data.length; i++ ){
-        chartLine.x.push( data[i].date );
+        var date = moment.unix( data[i].date );
+        chartLine.x.push( date.format('YYYY-M-D') );
         chartLine.y.push( data[i].price );
       }
 
       var data = [chartLine]
 
-      Plotly.newPlot('price-chart', data , layout);
+      Plotly.newPlot('price-chart', data);
     },
 
     init: function () {
