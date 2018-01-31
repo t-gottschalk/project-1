@@ -27,9 +27,44 @@ var app = {
 
   priceHistoryModule : {
 
+    getPrices: function( ticker ){
+
+      var queryURL = 'http://localhost:8080/api/history/'+ ticker;
+
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      }).then(function(result) {
+
+      app.priceHistoryModule.renderPrices( result );
+
+      }).fail(function(err) {
+        throw err;
+      });
+    },
+
+    renderPrices: function( data ){
+      var chartLine = {
+        x: [],
+        y: [],
+        type: 'scatter'
+      };
+
+      for( var i = 0; i < data.length; i++ ){
+        chartLine.x.push( data[i].date );
+        chartLine.y.push( data[i].price );
+      }
+
+      var data = [chartLine]
+
+      Plotly.newPlot('price-chart', data , layout);
+    },
+
     init: function () {
-      console.log("Price History Loaded");
-    }
+      this.getPrices('BTC');
+    },
+
+
   },
 
   pollModule : {
