@@ -36,14 +36,14 @@ var app = {
         method: "GET"
       }).then(function(result) {
 
-      app.priceHistoryModule.renderPrices( result );
+      app.priceHistoryModule.renderPrices( ticker, result );
 
       }).fail(function(err) {
         throw err;
       });
     },
 
-    renderPrices: function( data ){
+    renderPrices: function( ticker, data ){
       var chartLine = {
         x: [],
         y: [],
@@ -58,7 +58,20 @@ var app = {
 
       var data = [chartLine]
 
-      Plotly.newPlot('price-chart', data);
+      var layout = {
+        title: ticker + " prices in the last week",
+        showlegend: false,
+        height: 290,
+        autosize: true,
+        margin: { t: 30 , l: 50 , r: 20 , b: 50 }
+      }
+
+      var options = {
+        displayModeBar: false,
+        scrollZoom: false
+      }
+
+      Plotly.newPlot( 'price-chart', data , layout , options );
     },
 
     init: function () {
