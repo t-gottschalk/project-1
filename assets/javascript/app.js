@@ -78,8 +78,8 @@ var app = {
 
     artGet: function(topic) {
 
-      const fromDate = moment().format("YYYY-MM-DD"),
-            toDate = moment().subtract(7, "days").format("YYYY-MM-DD");
+      const toDate = moment().format("YYYY-MM-DD"),
+            fromDate = moment().subtract(12, "days").format("YYYY-MM-DD");
 
       const queryURL = app.newsModule.baseURL + topic + "$from=" + fromDate + "&to=" + toDate + "&sortBy=popularity&pageSize=10&apiKey=" + app.newsModule.apiKey;
       console.log(queryURL, "Query URL");
