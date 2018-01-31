@@ -84,7 +84,13 @@ var app = {
 
       $(window).on('resize' , function(){
         app.priceHistoryModule.renderPrices();
-      })
+      });
+
+      $('.topic-tab').on('click' , function(e){
+        var ticker = $(e.target).attr('data-coin');
+        app.priceHistoryModule.activeCurrency = ticker;
+        app.priceHistoryModule.renderPrices();
+      });
     },
 
 
