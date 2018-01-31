@@ -27,9 +27,73 @@ var app = {
 
   priceHistoryModule : {
 
+    activeCurrency: 'BTC',
+
+    data: '',
+
+    getPrices: function( ){
+
+      var queryURL = 'http://localhost:8080/api/history/'+ this.activeCurrency;
+
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      }).then(function(result) {
+
+      app.priceHistoryModule.data = result;
+      app.priceHistoryModule.renderPrices();
+
+      }).fail(function(err) {
+        throw err;
+      });
+    },
+
+    renderPrices: function( ){
+      var chartLine = {
+        x: [],
+        y: [],
+        type: 'scatter'
+      };
+
+      for( var i = 0; i < this.data.length; i++ ){
+        var date = moment.unix( this.data[i].date );
+        chartLine.x.push( date.format('YYYY-M-D') );
+        chartLine.y.push( this.data[i].price );
+      }
+
+      var data = [chartLine]
+
+      var layout = {
+        title: this.activeCurrency + " prices in the last week",
+        showlegend: false,
+        height: 290,
+        autosize: true,
+        margin: { t: 30 , l: 50 , r: 20 , b: 50 }
+      }
+
+      var options = {
+        displayModeBar: false,
+        scrollZoom: false
+      }
+
+      Plotly.newPlot( 'price-chart', data , layout , options );
+    },
+
     init: function () {
-      console.log("Price History Loaded");
-    }
+      this.getPrices('BTC');
+
+      $(window).on('resize' , function(){
+        app.priceHistoryModule.renderPrices();
+      });
+
+      $('.topic-tab').on('click' , function(e){
+        var ticker = $(e.target).attr('data-coin');
+        app.priceHistoryModule.activeCurrency = ticker;
+        app.priceHistoryModule.getPrices();
+      });
+    },
+
+
   },
 
   pollModule : {
@@ -81,18 +145,14 @@ var app = {
 
     init: function () {
 
-      console.log("News module loaded");
-
       app.newsModule.topics.forEach(function(item) {
 
         app.newsModule.artGet(item);
 
       });
 
-      console.log(app.newsModule.articles, "all topic results");
-
       // listens for topic link selection, then renders appropriate articles
-      $(".topic_tab").on("click", function() {
+      $(".topic-tab").on("click", function() {
 
         topic = $(this).text().toLowerCase();
         app.newsModule.artDisplay(topic);
@@ -103,8 +163,10 @@ var app = {
 
     artGet: function(topic) {
 
-      const queryURL = app.newsModule.baseURL + topic + "$from=2018-01-18&to=2018-01-25&sortBy=popularity&pageSize=10&apiKey=" + app.newsModule.apiKey;
-      console.log(queryURL, "Query URL");
+      const toDate = moment().format("YYYY-MM-DD"),
+            fromDate = moment().subtract(12, "days").format("YYYY-MM-DD");
+
+      const queryURL = app.newsModule.baseURL + topic + "$from=" + fromDate + "&to=" + toDate + "&sortBy=popularity&pageSize=10&apiKey=" + app.newsModule.apiKey;
 
       $.ajax({
         url: queryURL,
@@ -127,26 +189,28 @@ var app = {
 
     artDisplay: function(x) {
 
-      console.log(x, "selected");
       const arrX = app.newsModule.articles[x];
-      console.log(arrX, "articles grabbed");
 
       $("#articles").empty();
 
       arrX.forEach(function(article) {
 
         let div = $("<div>").addClass("container article"),
-        h4 = $("<h4>").text(article.title),
-        img = $("<img>").addClass("img_article").attr("src", article.urlToImage),
-        pAuth = $("<p>").text(article.author),
-        pBod = $("<p>").html('<em>' + article.description + '</em>'),
-        a = $("<a>").addClass("art_link").attr("href", article.url).text("Link to article");
+
+            h4 = $("<h4>").text(article.title),
+            img = $("<img>").addClass("img_article").attr("src", article.urlToImage),
+            pAuth = $("<p>").text(article.author),
+            pBod = $("<p>").html('<em>' + article.description + '</em>'),
+            a = $("<a>").addClass("art_link").attr("href", article.url).attr("target", "_blank").text("Link to article");
 
         div.append(h4).append(img).append(pAuth).append(pBod).append(a);
 
         $("#articles").append(div);
 
       }); 
+
+      let pSrc = $("<p>").html("<em>Articles provided by Newsapi.org</em>");
+      $("#articles").append(pSrc);
 
     }
 
