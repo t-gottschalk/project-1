@@ -133,7 +133,7 @@ var app = {
     renderPolls: function (state) {
 
       var data = {
-       labels: ["Bitcoin","Doge","Ripple","Ethereum"],
+       labels: ["Bitcoin","Doge","Ethereum","Ripple"],
        values: Object.getOwnPropertyNames(state).map(x => state[x]),
        type:'pie'
      };
