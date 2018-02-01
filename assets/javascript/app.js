@@ -140,7 +140,7 @@ var app = {
       data = [data];
 
       var layout = {
-        title: "Curent Polls",
+        title: "Current Polls",
         showlegend: true,
         height: 290,
         width:350,
@@ -231,12 +231,18 @@ var app = {
         let div = $("<div>").addClass("container article"),
 
         h4 = $("<h4>").text(article.title),
-        img = $("<img>").addClass("img_article").attr("src", article.urlToImage),
-        pAuth = $("<p>").text(article.author),
-        pBod = $("<p>").html('<em>' + article.description + '</em>'),
-        a = $("<a>").addClass("art_link").attr("href", article.url).attr("target", "_blank").text("Link to article");
+        img = $("<img>").addClass("article-img").attr("src", article.urlToImage),
+        pAuth = $("<p>").addClass("article-author").text(article.author),
+        pBod = $("<p>").addClass("article-body").html('<em>' + article.description + '</em>'),
+        a = $("<a>").addClass("art_link").attr("href", article.url).attr("target", "_blank").html("<button class='accept article-btn'>View Article</button");
 
-        div.append(h4).append(img).append(pAuth).append(pBod).append(a);
+        div.append(h4);
+        
+        if( article.urlToImage ){ // check it the artcle has an image before appending
+          div.append(img);
+        }
+        
+        div.append(pAuth).append(pBod).append(a);
 
         $("#articles").append(div);
 
@@ -340,7 +346,10 @@ var app = {
 
         const a = $(".navbar"),
               b = $("#messages li:nth-child(odd)"),
-              c = $("#footer");
+              c = $("#footer"),
+              d = $(".navbar-brand"),
+              e = $(".nav-link.topic-tab"),
+              f = $(".section-header");
               
         TweenMax.to(a, 1, {
           backgroundColor: app.aniModule.presets[x].primary,
@@ -349,6 +358,15 @@ var app = {
           backgroundColor: app.aniModule.presets[x].primary,
           color: app.aniModule.presets[x].secondary });
         TweenMax.to(c, 1, {
+          backgroundColor: app.aniModule.presets[x].primary,
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(d, 1, {
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(d, 1, {
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(e, 1, {
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(f, 1, {
           backgroundColor: app.aniModule.presets[x].primary,
           color: app.aniModule.presets[x].secondary });
 
