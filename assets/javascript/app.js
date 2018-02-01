@@ -255,7 +255,7 @@ newsModule : {
 
     init: function () {
       $('#chatForm').submit(function (event) { // hook the chat form submit
-        event.preventDefault();
+        //event.preventDefault;
         var newMessage = $('#m').val();
 
         if (newMessage != '') {
