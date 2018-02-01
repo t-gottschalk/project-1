@@ -53,6 +53,10 @@ li {
   padding: 10px 16px;
 }
 
+.svg-container{
+  margin:auto !important;
+}
+
 .article {
   border-bottom: 2px solid #9C9C7A;
   margin-bottom: 20px;

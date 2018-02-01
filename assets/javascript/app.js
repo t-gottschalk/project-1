@@ -40,8 +40,8 @@ var app = {
         method: "GET"
       }).then(function(result) {
 
-      app.priceHistoryModule.data = result;
-      app.priceHistoryModule.renderPrices();
+        app.priceHistoryModule.data = result;
+        app.priceHistoryModule.renderPrices();
 
       }).fail(function(err) {
         throw err;
@@ -97,48 +97,77 @@ var app = {
   },
 
   pollModule : {
-
-    init: function () {
-
+    pollState:0,
+    init:function () {
       var fbConfig = {
-        apiKey: apiKey.firebase,
-        authDomain: "test-project-59866.firebaseapp.com",
-        databaseURL: "https://test-project-59866.firebaseio.com",
-        projectId: "test-project-59866",
-        storageBucket: "test-project-59866.appspot.com",
-        messagingSenderId: "766361558341"
-      };
+      apiKey: apiKey.firebase,
+      authDomain: "test-project-59866.firebaseapp.com",
+      databaseURL: "https://test-project-59866.firebaseio.com",
+      projectId: "test-project-59866",
+      storageBucket: "test-project-59866.appspot.com",
+      messagingSenderId: "766361558341"
+    }
       firebase.initializeApp(fbConfig);
-      var db = firebase.database();
-      var pollState;
+      var db = firebase.database(); 
+      var voted = [];     
       db.ref().on('value',function(snapshot){
-        pollState = snapshot.val();
-        console.log(pollState);
+        app.pollModule.pollState = snapshot.val();
+        console.log(app.pollModule.pollState);
+        app.pollModule.renderPolls(app.pollModule.pollState);
+        if (snapshot.child('voted').val().indexOf(app.userModule.username)>=0){$('#pollForm').hide(); $('#poll-chart').show('200');}
+        else{$('#poll-chart').hide();}
       });
       $('#pollForm').submit(function(event){
-        event.preventDefault;
+        event.preventDefault();
+        voted.push(app.userModule.username)
+        db.ref('voted').set(voted);
         var vote = $('input[name=vote]:checked', this).val();
         console.log(vote);
-        pollState[vote]++;
-        db.ref().set(pollState);
-        this.hide();
+        app.pollModule.pollState[vote]++;
+        db.ref().set(app.pollModule.pollState);              
       });
 
+    },
+
+    renderPolls: function (state) {
+
+      var data = {
+       labels: ["Bitcoin","Doge","Ripple","Ethereum"],
+       values: Object.getOwnPropertyNames(state).map(x => state[x]),
+       type:'pie'
+     };
+     data = [data];
+
+     var layout = {
+      title: "Curent Polls",
+      showlegend: true,
+      height: 290,
+      width:350,
+      autosize: true,
+      margin: { t: 30 , l: 50 , r: 20 , b: 50 }
     }
-    
-  },
 
-  newsModule : {
+    var options = {
+      displayModeBar: false,
+      scrollZoom: false
+    }
 
-    apiKey: apiKey.news,
-    baseURL: "https://newsapi.org/v2/everything?q=", 
+    Plotly.newPlot( 'poll-chart', data , layout , options );
+  }
 
-    topics: [
-    "bitcoin",
-    "ethereum",
-    "ripple",
-    "dogecoin"
-    ],
+},
+
+newsModule : {
+
+  apiKey: apiKey.news,
+  baseURL: "https://newsapi.org/v2/everything?q=", 
+
+  topics: [
+  "bitcoin",
+  "ethereum",
+  "ripple",
+  "dogecoin"
+  ],
 
     // stores articles pulled from ajax call as properties under the topic name
     articles: {},
@@ -164,7 +193,7 @@ var app = {
     artGet: function(topic) {
 
       const toDate = moment().format("YYYY-MM-DD"),
-            fromDate = moment().subtract(12, "days").format("YYYY-MM-DD");
+      fromDate = moment().subtract(12, "days").format("YYYY-MM-DD");
 
       const queryURL = app.newsModule.baseURL + topic + "$from=" + fromDate + "&to=" + toDate + "&sortBy=popularity&pageSize=10&apiKey=" + app.newsModule.apiKey;
 
@@ -197,11 +226,11 @@ var app = {
 
         let div = $("<div>").addClass("container article"),
 
-            h4 = $("<h4>").text(article.title),
-            img = $("<img>").addClass("img_article").attr("src", article.urlToImage),
-            pAuth = $("<p>").text(article.author),
-            pBod = $("<p>").html('<em>' + article.description + '</em>'),
-            a = $("<a>").addClass("art_link").attr("href", article.url).attr("target", "_blank").text("Link to article");
+        h4 = $("<h4>").text(article.title),
+        img = $("<img>").addClass("img_article").attr("src", article.urlToImage),
+        pAuth = $("<p>").text(article.author),
+        pBod = $("<p>").html('<em>' + article.description + '</em>'),
+        a = $("<a>").addClass("art_link").attr("href", article.url).attr("target", "_blank").text("Link to article");
 
         div.append(h4).append(img).append(pAuth).append(pBod).append(a);
 
@@ -226,7 +255,7 @@ var app = {
 
     init: function () {
       $('#chatForm').submit(function (event) { // hook the chat form submit
-        event.preventDefault;
+        event.preventDefault();
         var newMessage = $('#m').val();
 
         if (newMessage != '') {
