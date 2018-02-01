@@ -260,7 +260,7 @@ var app = {
     socket : io(),
 
     parseMessage : function( msg ){
-      return '<strong>'+ msg.name +':</strong> ' + msg.message
+      return '<strong class="chat-user">'+ msg.name +':</strong> <span class="chat-message">' + msg.message + '</span>'
     },
 
     init: function () {
