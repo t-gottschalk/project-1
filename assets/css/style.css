@@ -48,8 +48,9 @@ li {
 .section-header {
   margin-top: 20px;
   font-size: 22px;
-  font-weight: bold;
   padding: 10px 16px;
+  background-color: #f7931a;
+  color: #000000;
 }
 
 .svg-container{
@@ -103,7 +104,7 @@ li {
 
 .send-message-wrapper,.vote-wrapper {
   position: absolute;
-  bottom: 15px;
+  bottom: 8px;
   width: 100%;
   padding-left: 15px;
 }
