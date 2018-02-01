@@ -70,7 +70,7 @@ li {
   overflow-y: scroll;
 }
 
-.img_article {
+.article-img {
   width: 100px;
 }
 
@@ -111,6 +111,19 @@ li {
   padding-left: 15px;
 }
 
+.article h4 {
+  font-size: 22px;
+}
+
+.article-author {
+  color: #aaaaaa;
+  margin-bottom: 5px;
+}
+
+.article-body {
+  font-size: 14px;
+}
+
 button.accept {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   border: 0;
@@ -118,6 +131,11 @@ button.accept {
   transition: all 0.2s ease-in-out;
   color: #fff;
   background: #177a39;
+  cursor: pointer;
+}
+
+button.accept.article-btn {
+  padding: 6px 15px;
 }
 
 button.accept:hover {
