@@ -113,8 +113,9 @@ var app = {
       db.ref().on('value',function(snapshot){
         app.pollModule.pollState = snapshot.val();
         //console.log(app.pollModule.pollState);
-        app.pollModule.renderPolls(app.pollModule.pollState);
-        if (snapshot.child('voted').val().indexOf(app.userModule.username)>=0){$('#pollForm').hide(); $('#poll-chart').show('200');}
+        app.pollModule.renderPolls(app.pollModule.pollState)
+        voted=snapshot.child('voted').val()
+        if (voted.indexOf(app.userModule.username)>=0){$('#pollForm').hide(); $('#poll-chart').show('200');}
         else{$('#poll-chart').hide();}
       });
       $('#pollForm').submit(function(event){
