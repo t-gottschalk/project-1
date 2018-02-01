@@ -115,7 +115,9 @@ header > nav > div > div > a:hover {
 
 
 
-
+#pollForm{
+  display: none;
+}
 
 
 .navbar-brand {
