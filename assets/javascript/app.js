@@ -340,7 +340,9 @@ var app = {
 
         const a = $(".navbar"),
               b = $("#messages li:nth-child(odd)"),
-              c = $("#footer");
+              c = $("#footer"),
+              d = $(".navbar-brand");
+              e = $(".nav-link.topic-tab");
               
         TweenMax.to(a, 1, {
           backgroundColor: app.aniModule.presets[x].primary,
@@ -350,6 +352,12 @@ var app = {
           color: app.aniModule.presets[x].secondary });
         TweenMax.to(c, 1, {
           backgroundColor: app.aniModule.presets[x].primary,
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(d, 1, {
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(d, 1, {
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(e, 1, {
           color: app.aniModule.presets[x].secondary });
 
       } else {
