@@ -338,15 +338,19 @@ var app = {
 
         app.aniModule.currPreset = x;
 
-        const a = $("header"),
+        const a = $(".navbar"),
               b = $("#messages li:nth-child(odd)"),
               c = $("#footer");
-
-        TweenMax.to(a, 1, {backgroundColor: app.aniModule.presets[x].primary});
-        TweenMax.to(b, 1, {backgroundColor: app.aniModule.presets[x].primary,
-                            color: app.aniModule.presets[x].secondary});
-        TweenMax.to(c, 1, {backgroundColor: app.aniModule.presets[x].primary,
-                            color: app.aniModule.presets[x].secondary});
+              
+        TweenMax.to(a, 1, {
+          backgroundColor: app.aniModule.presets[x].primary,
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(b, 1, {
+          backgroundColor: app.aniModule.presets[x].primary,
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(c, 1, {
+          backgroundColor: app.aniModule.presets[x].primary,
+          color: app.aniModule.presets[x].secondary });
 
       } else {
 
