@@ -112,7 +112,7 @@ var app = {
       var voted = [];     
       db.ref().on('value',function(snapshot){
         app.pollModule.pollState = snapshot.val();
-        console.log(app.pollModule.pollState);
+        //console.log(app.pollModule.pollState);
         app.pollModule.renderPolls(app.pollModule.pollState);
         if (snapshot.child('voted').val().indexOf(app.userModule.username)>=0){$('#pollForm').hide(); $('#poll-chart').show('200');}
         else{$('#poll-chart').hide();}
@@ -255,7 +255,7 @@ newsModule : {
 
     init: function () {
       $('#chatForm').submit(function (event) { // hook the chat form submit
-        //event.preventDefault;
+        event.preventDefault();
         var newMessage = $('#m').val();
 
         if (newMessage != '') {
