@@ -136,39 +136,39 @@ var app = {
        labels: ["Bitcoin","Doge","Ripple","Ethereum"],
        values: Object.getOwnPropertyNames(state).map(x => state[x]),
        type:'pie'
-     };
-     data = [data];
+      };
+      data = [data];
 
-     var layout = {
-      title: "Curent Polls",
-      showlegend: true,
-      height: 290,
-      width:350,
-      autosize: true,
-      margin: { t: 30 , l: 50 , r: 20 , b: 50 }
+      var layout = {
+        title: "Curent Polls",
+        showlegend: true,
+        height: 290,
+        width:350,
+        autosize: true,
+        margin: { t: 30 , l: 50 , r: 20 , b: 50 }
+      }
+
+      var options = {
+        displayModeBar: false,
+        scrollZoom: false
+      }
+
+      Plotly.newPlot( 'poll-chart', data , layout , options );
     }
+ 
+  },
 
-    var options = {
-      displayModeBar: false,
-      scrollZoom: false
-    }
+  newsModule : {
 
-    Plotly.newPlot( 'poll-chart', data , layout , options );
-  }
+    apiKey: apiKey.news,
+    baseURL: "https://newsapi.org/v2/everything?language=en&q=", 
 
-},
-
-newsModule : {
-
-  apiKey: apiKey.news,
-  baseURL: "https://newsapi.org/v2/everything?q=", 
-
-  topics: [
-  "bitcoin",
-  "ethereum",
-  "ripple",
-  "dogecoin"
-  ],
+    topics: [
+    "bitcoin",
+    "ethereum",
+    "ripple",
+    "dogecoin"
+    ],
 
     // stores articles pulled from ajax call as properties under the topic name
     articles: {},
@@ -184,8 +184,10 @@ newsModule : {
       // listens for topic link selection, then renders appropriate articles
       $(".topic-tab").on("click", function() {
 
-        topic = $(this).text().toLowerCase();
+        const topic = $(this).text().toLowerCase();
         app.newsModule.artDisplay(topic);
+        app.aniModule.renderScreen(topic);
+        console.log(topic, "screen render");
 
       });
 
@@ -194,9 +196,8 @@ newsModule : {
     artGet: function(topic) {
 
       const toDate = moment().format("YYYY-MM-DD"),
-      fromDate = moment().subtract(12, "days").format("YYYY-MM-DD");
-
-      const queryURL = app.newsModule.baseURL + topic + "$from=" + fromDate + "&to=" + toDate + "&sortBy=popularity&pageSize=10&apiKey=" + app.newsModule.apiKey;
+            fromDate = moment().subtract(14, "days").format("YYYY-MM-DD");
+            queryURL = app.newsModule.baseURL + topic + "$from=" + fromDate + "&to=" + toDate + "&sortBy=relevancy&pageSize=10&apiKey=" + app.newsModule.apiKey;
 
       $.ajax({
         url: queryURL,
@@ -209,7 +210,9 @@ newsModule : {
           value: x
         });
 
-
+        if(topic === "bitcoin") {
+          app.newsModule.artDisplay("bitcoin");
+        }
 
       }).fail(function(err) {
         throw err;
@@ -239,8 +242,8 @@ newsModule : {
 
       }); 
 
-      let pSrc = $("<p>").html("<em>Articles provided by Newsapi.org</em>");
-      $("#articles").append(pSrc);
+      let divSrc = $("<div>").addClass("container").html("<p><em>Articles provided by Newsapi.org</em></p>");
+      $("#articles").append(divSrc);
 
     }
 
@@ -284,22 +287,93 @@ newsModule : {
         app.chatModule.socket.on('chat message', function (msg) {
           $('#messages').append($('<li>').html( app.chatModule.parseMessage( msg ) ));
           $('#message-display').scrollTop(9999999);
+          app.aniModule.quickRender(app.aniModule.currPreset);
         });
+
+      }
+
+  },
+
+  aniModule: {
+
+    currPreset: "bitcoin",
+
+    presets: {
+
+      bitcoin: {
+        primary: "#f7931a",
+        secondary: "#4d4d4d"
+      },
+
+      ethereum: {
+        primary: "#3C3C3D",
+        secondary: "#C99D66"
+      },
+
+      ripple: {
+        primary: "#007a7b",
+        secondary: "#d4fff6"
+      },
+
+      dogecoin: {
+        primary: "#e1b303",
+        secondary: "#000000"
+      },
+      
+    },
+
+    init: function() {
+
+      app.aniModule.renderScreen("start");
+
+    },
+
+    renderScreen: function(x) {
+
+      if(x === "start") {
+
+        console.log("Bitcoin color scheme already in place");
+
+      } else if(app.aniModule.presets[x] != undefined) {
+
+        app.aniModule.currPreset = x;
+
+        const a = $("header"),
+              b = $("#messages li:nth-child(odd)"),
+              c = $("#footer");
+
+        TweenMax.to(a, 1, {backgroundColor: app.aniModule.presets[x].primary});
+        TweenMax.to(b, 1, {backgroundColor: app.aniModule.presets[x].primary,
+                            color: app.aniModule.presets[x].secondary});
+        TweenMax.to(c, 1, {backgroundColor: app.aniModule.presets[x].primary,
+                            color: app.aniModule.presets[x].secondary});
+
+      } else {
+
+        console.log(x + "is not an available preset");
+        app.aniModule.renderScreen("default");
 
       }
 
     },
 
-    startup : function(){
-
-      this.userModule.init();
-      this.priceHistoryModule.init();
-      this.pollModule.init();
-      this.newsModule.init();
-      this.chatModule.init();
-
+    quickRender: function(x) {
+      $("#messages li:nth-child(odd)").attr("style", "background-color: " + app.aniModule.presets[x].primary + "; color: " + app.aniModule.presets[x].secondary + ";");
     }
 
+  },
+
+  startup : function(){
+
+    this.userModule.init();
+    this.priceHistoryModule.init();
+    this.pollModule.init();
+    this.newsModule.init();
+    this.chatModule.init();
+    this.aniModule.init();
+
   }
+
+};
 
 app.startup(); // main entry point of this application
