@@ -140,7 +140,7 @@ var app = {
       data = [data];
 
       var layout = {
-        title: "Curent Polls",
+        title: "Current Polls",
         showlegend: true,
         height: 290,
         width:350,

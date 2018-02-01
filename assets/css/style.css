@@ -51,6 +51,8 @@ li {
   padding: 10px 16px;
   background-color: #f7931a;
   color: #000000;
+  height: 50px;
+  line-height: 30px;
 }
 
 .svg-container{
