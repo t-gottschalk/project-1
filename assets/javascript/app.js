@@ -17,9 +17,13 @@ var app = {
             app.userModule.username = input;
             localStorage.setItem('cryptoClash-name' , input); // saving username
             $('#welcome-modal').modal('hide');
+            $('#main-app').css('opacity','1');
           }
 
         });
+      }
+      else if(this.username){
+        $('#main-app').css('opacity','1');
       }
 
     }
