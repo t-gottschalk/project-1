@@ -131,6 +131,10 @@ var app = {
         db.ref().set(app.pollModule.pollState);              
       });
 
+      $(document).ready(function (){
+        app.pollModule.renderPolls(app.pollModule.pollState);
+      });
+
     },
 
     renderPolls: function (state) {
@@ -145,10 +149,9 @@ var app = {
       var layout = {
         title: "Current Polls",
         showlegend: true,
-        height: 300,
-        width: 380,
+        height: 290,
         autosize: true,
-        margin: { t: 30 , l: 50 , r: 20 , b: 50 }
+        margin: { t: 30 , l: 50 , r: 20 , b: 40 }
       }
 
       var options = {
