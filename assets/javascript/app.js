@@ -97,6 +97,8 @@ var app = {
   },
 
   pollModule : {
+
+    pollName: "Vote on your favourite cryptocurrency",
     pollState:0,
     init:function () {
       var fbConfig = {
@@ -160,6 +162,8 @@ var app = {
       }
 
       Plotly.newPlot( 'poll-chart', data , layout , options );
+
+      $("#poll-header").html('Poll<em style="margin-left: 20px; font-size: 15px;">' + app.pollModule.pollName + '</em>');
     }
  
   },
@@ -379,7 +383,7 @@ var app = {
       } else {
 
         console.log(x + "is not an available preset");
-        app.aniModule.renderScreen("default");
+        app.aniModule.renderScreen("bitcoin");
 
       }
 
