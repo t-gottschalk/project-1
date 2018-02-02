@@ -394,6 +394,13 @@ var app = {
     this.chatModule.init();
     this.aniModule.init();
 
+    var tl = new TimelineLite();
+
+    tl.add( TweenLite.from( $('.section-ticker')  , .5, { ease: Power2.easeInOut , y: 50, opacity: 0 , delay: 0.4 } ) );
+    tl.add( TweenLite.from( $('.section-poll')    , .5, { ease: Power2.easeInOut , y: 50, opacity: 0 }, "-=0.7" ) );
+    tl.add( TweenLite.from( $('.section-articles'), .5, { ease: Power2.easeInOut , y: 50, opacity: 0 }, "-=0.7" ) );
+    tl.add( TweenLite.from( $('.section-chat')    , .5, { ease: Power2.easeInOut , y: 50, opacity: 0 }, "-=0.7" ) );
+
   }
 
 };
