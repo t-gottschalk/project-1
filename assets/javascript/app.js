@@ -125,7 +125,8 @@ var app = {
         var vote = $('input[name=vote]:checked', this).val();
         console.log(vote);
         app.aniModule.renderScreen($('input[name=vote]:checked', this).attr('id'));
-        app.priceHistoryModule.getPrices(vote);
+        app.priceHistoryModule.activeCurrency=vote;
+        app.priceHistoryModule.getPrices();
         app.pollModule.pollState[vote]++;
         db.ref().set(app.pollModule.pollState);              
       });
@@ -142,7 +143,7 @@ var app = {
       data = [data];
 
       var layout = {
-        title: "Curent Polls",
+        title: "Current Polls",
         showlegend: true,
         height: 300,
         width: 380,
@@ -233,12 +234,18 @@ var app = {
         let div = $("<div>").addClass("container article"),
 
         h4 = $("<h4>").text(article.title),
-        img = $("<img>").addClass("img_article").attr("src", article.urlToImage),
-        pAuth = $("<p>").text(article.author),
-        pBod = $("<p>").html('<em>' + article.description + '</em>'),
-        a = $("<a>").addClass("art_link").attr("href", article.url).attr("target", "_blank").text("Link to article");
+        img = $("<img>").addClass("article-img").attr("src", article.urlToImage),
+        pAuth = $("<p>").addClass("article-author").text(article.author),
+        pBod = $("<p>").addClass("article-body").html('<em>' + article.description + '</em>'),
+        a = $("<a>").addClass("art_link").attr("href", article.url).attr("target", "_blank").html("<button class='accept article-btn'>View Article</button");
 
-        div.append(h4).append(img).append(pAuth).append(pBod).append(a);
+        div.append(h4);
+        
+        if( article.urlToImage ){ // check it the artcle has an image before appending
+          div.append(img);
+        }
+        
+        div.append(pAuth).append(pBod).append(a);
 
         $("#articles").append(div);
 
@@ -256,7 +263,7 @@ var app = {
     socket : io(),
 
     parseMessage : function( msg ){
-      return '<strong>'+ msg.name +':</strong> ' + msg.message
+      return '<strong class="chat-user">'+ msg.name +':</strong> <span class="chat-message">' + msg.message + '</span>'
     },
 
     init: function () {
@@ -340,15 +347,31 @@ var app = {
 
         app.aniModule.currPreset = x;
 
-        const a = $("header"),
+        const a = $(".navbar"),
               b = $("#messages li:nth-child(odd)"),
-              c = $("#footer");
-
-        TweenMax.to(a, 1, {backgroundColor: app.aniModule.presets[x].primary});
-        TweenMax.to(b, 1, {backgroundColor: app.aniModule.presets[x].primary,
-                            color: app.aniModule.presets[x].secondary});
-        TweenMax.to(c, 1, {backgroundColor: app.aniModule.presets[x].primary,
-                            color: app.aniModule.presets[x].secondary});
+              c = $("#footer"),
+              d = $(".navbar-brand"),
+              e = $(".nav-link.topic-tab"),
+              f = $(".section-header");
+              
+        TweenMax.to(a, 1, {
+          backgroundColor: app.aniModule.presets[x].primary,
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(b, 1, {
+          backgroundColor: app.aniModule.presets[x].primary,
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(c, 1, {
+          backgroundColor: app.aniModule.presets[x].primary,
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(d, 1, {
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(d, 1, {
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(e, 1, {
+          color: app.aniModule.presets[x].secondary });
+        TweenMax.to(f, 1, {
+          backgroundColor: app.aniModule.presets[x].primary,
+          color: app.aniModule.presets[x].secondary });
 
       } else {
 
