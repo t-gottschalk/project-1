@@ -1,4 +1,4 @@
-# project-1
+# Project-1 UNC Code School
 
 * Project Title
 	• Crypto Clash Dashboard
@@ -43,11 +43,4 @@
 	• Node.js
 	• Express.js
 	• Socket.io
-
-
-
-
-
-
-
 
