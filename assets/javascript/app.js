@@ -436,22 +436,22 @@ var app = {
     presets: {
 
       bitcoin: {
-        primary: "#f7931a",
-        secondary: "#4d4d4d"
+        primary: "#f2a900",
+        secondary: "#F5F5F5"
       },
 
       ethereum: {
-        primary: "#3C3C3D",
-        secondary: "#C99D66"
+        primary: "#3c3c3d",
+        secondary: "#c99d66"
       },
 
       ripple: {
-        primary: "#007a7b",
-        secondary: "#d4fff6"
+        primary: "#00aae4",
+        secondary: "#434c54"
       },
 
       dogecoin: {
-        primary: "#e1b303",
+        primary: "#cb9800",
         secondary: "#000000"
       },
       
