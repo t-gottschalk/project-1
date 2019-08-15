@@ -37,7 +37,7 @@ var app = {
 
     getPrices: function( ){
 
-      var queryURL = 'http://hidden-savannah-78793.herokuapp.com/api/history/'+ this.activeCurrency;
+      var queryURL = 'https://hidden-savannah-78793.herokuapp.com/api/history/'+ this.activeCurrency;
 
       $.ajax({
         url: queryURL,
@@ -411,7 +411,7 @@ var app = {
       });
 
       //get all messages and populate message history
-      $.get( "http://hidden-savannah-78793.herokuapp.com/api/messages/", function( response ) {
+      $.get( "https://hidden-savannah-78793.herokuapp.com/api/messages/", function( response ) {
         return response }).done(function( data ){
           for( var i = 0; i < data.length; i++ ){
             $('#messages').prepend($('<li>').html( app.chatModule.parseMessage( data[i] ) ));
