@@ -11,7 +11,7 @@ var fetchPrices = function(){  // loop through currencies at an interval due to 
     function getPrice( tickerSymbol ,  index) { // fetches and saves prices for provided symbol starting from index
 
         for( var k = index; k >= 0; k-- ){ // for each date in lastWeek beggining from the provided index
-            var url = 'https://min-api.cryptocompare.com/data/pricehistorical?fsym=' + tickerSymbol + '&tsyms=USD&ts=' + index[k];
+            var url = 'https://min-api.cryptocompare.com/data/pricehistorical?fsym=' + tickerSymbol + '&tsyms=USD&ts=' + lastWeek[k];
     
             https.get( url, function( res ){ // make a get request with the dynamic url
                 res.setEncoding('utf8');
@@ -41,20 +41,19 @@ var fetchPrices = function(){  // loop through currencies at an interval due to 
         };
         
     }
-    
+
     var priceInterval = setInterval( function(){
 
         var now = new Date(); // first find the start of today in unix time
         var currentTicker = currencies[currencyIndex]
-        var startOfDay = new Date( now.getFullYear(), now.getMonth(), now.getDate() );
-        var unixTime = startOfDay / 1000;
+        var unixTime = Date.parse(now);
         var lastWeek = [ unixTime ]; // begin an array of this week's unix dates
         
         for( var i = 0; i < 6; i++ ){ // populate the last week array
             unixTime -= 86400;
             lastWeek.push(unixTime);
         }
-
+    
         
         var prices = Price.find( { currency : currentTicker }, function(err, data){ // get the newest price
             if(err) {
