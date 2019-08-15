@@ -7,11 +7,11 @@ var fetchPrices = function(){  // loop through currencies at an interval due to 
 
     var currencyIndex = 0;
     var currencies = [ 'BTC', 'ETH', 'RPX', 'DOGE' ]; // Currencies in ticker symbols
-    
-    function getPrice( tickerSymbol , index ) { // fetches and saves prices for provided symbol starting from index
+
+    function getPrice( tickerSymbol ,  index) { // fetches and saves prices for provided symbol starting from index
 
         for( var k = index; k >= 0; k-- ){ // for each date in lastWeek beggining from the provided index
-            var url = 'https://min-api.cryptocompare.com/data/pricehistorical?fsym=' + tickerSymbol + '&tsyms=USD,EUR&ts=' + lastWeek[k];
+            var url = 'https://min-api.cryptocompare.com/data/pricehistorical?fsym=' + tickerSymbol + '&tsyms=USD&ts=' + index[k];
     
             https.get( url, function( res ){ // make a get request with the dynamic url
                 res.setEncoding('utf8');

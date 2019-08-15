@@ -37,7 +37,7 @@ var app = {
 
     getPrices: function( ){
 
-      var queryURL = 'https://hidden-savannah-78793.herokuapp.com/api/history/'+ this.activeCurrency;
+      var queryURL = 'https://cryptoclash.herokuapp.com/api/history/'+ this.activeCurrency;
 
       $.ajax({
         url: queryURL,
