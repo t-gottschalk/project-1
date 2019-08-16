@@ -1,10 +1,8 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var assert = require('assert');
 var app = express();
 var path = require('path')
 var http = require('http').Server(app);
-var router = express.Router()
 var io = require('socket.io')(http);
 
 // Utils

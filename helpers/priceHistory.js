@@ -1,21 +1,24 @@
-var mongoose = require('mongoose');
-var Price = require('./../models/Price.js');
-var https = require('https');
-var CronJob = require('cron').CronJob;
+const Price = require('./../models/Price.js');
+const https = require('https');
+const CronJob = require('cron').CronJob;
 
-var fetchPrices = function(){  // loop through currencies at an interval due to API request limits
+let now = new Date(); // first find the start of today in unix time
+var unixTime = Date.parse(now);
+var lastWeek = [ unixTime ]; // begin an array of this week's unix dates
 
-    var currencyIndex = 0;
-    var currencies = [ 'BTC', 'ETH', 'RPX', 'DOGE' ]; // Currencies in ticker symbols
+const fetchPrices = () => {  // loop through currencies at an interval due to API request limits
 
-    function getPrice( tickerSymbol ,  index) { // fetches and saves prices for provided symbol starting from index
+    let currencyIndex = 0;
+    const currencies = [ 'BTC', 'ETH', 'RPX', 'DOGE' ];// Currencies in ticker symbols
 
-        for( var k = index; k >= 0; k-- ){ // for each date in lastWeek beggining from the provided index
-            var url = 'https://min-api.cryptocompare.com/data/pricehistorical?fsym=' + tickerSymbol + '&tsyms=USD&ts=' + lastWeek[k];
+    const getPrice = ( tickerSymbol ,  index) => { // fetches and saves prices for provided symbol starting from index
+
+        for( let k = index; k >= 0; k-- ){ // for each date in lastWeek beggining from the provided index
+            let url = 'https://min-api.cryptocompare.com/data/pricehistorical?fsym=' + tickerSymbol + '&tsyms=USD&ts=' + lastWeek[k];
     
             https.get( url, function( res ){ // make a get request with the dynamic url
                 res.setEncoding('utf8');
-                var body = '';
+                let body = '';
                 res.on('data', data => {
                     body += data;
                 });
@@ -23,7 +26,7 @@ var fetchPrices = function(){  // loop through currencies at an interval due to 
                 res.on('end', () => { // when the request is done
                     body = JSON.parse(body); // convert response to json
     
-                    var price = new Price ({ // prepare the price for db entry
+                    let price = new Price ({ // prepare the price for db entry
                         currency: tickerSymbol.toString(),
                         price: body[tickerSymbol].USD,
                         date: lastWeek[this]
@@ -42,20 +45,15 @@ var fetchPrices = function(){  // loop through currencies at an interval due to 
         
     }
 
-    var priceInterval = setInterval( function(){
-
-        var now = new Date(); // first find the start of today in unix time
+    const priceInterval = setInterval( () => {
         var currentTicker = currencies[currencyIndex]
-        var unixTime = Date.parse(now);
-        var lastWeek = [ unixTime ]; // begin an array of this week's unix dates
-        
-        for( var i = 0; i < 6; i++ ){ // populate the last week array
+        for( let i = 0; i < 6; i++ ){ // populate the last week array
             unixTime -= 86400;
             lastWeek.push(unixTime);
         }
     
         
-        var prices = Price.find( { currency : currentTicker }, function(err, data){ // get the newest price
+        const prices = Price.find( { currency : currentTicker }, function(err, data){ // get the newest price
             if(err) {
                 console.log('Error: ' , err); 
             } else {
