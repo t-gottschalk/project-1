@@ -2,9 +2,8 @@ const Price = require('./../models/Price.js');
 const https = require('https');
 const CronJob = require('cron').CronJob;
 
-let now = new Date(); // first find the start of today in unix time
-var unixTime = Date.parse(now);
-var lastWeek = [ unixTime ]; // begin an array of this week's unix dates
+        var unixTime = Date.parse(new Date());
+        let lastWeek = [ unixTime ]; // begin an array of this week's unix dates
 
 const fetchPrices = () => {  // loop through currencies at an interval due to API request limits
 
@@ -12,6 +11,11 @@ const fetchPrices = () => {  // loop through currencies at an interval due to AP
     const currencies = [ 'BTC', 'ETH', 'RPX', 'DOGE' ];// Currencies in ticker symbols
 
     const getPrice = ( tickerSymbol ,  index) => { // fetches and saves prices for provided symbol starting from index
+
+        for( let i = 0; i < 6; i++ ){ // populate the last week array
+            unixTime -= 86400;
+            lastWeek.push(unixTime);
+        }
 
         for( let k = index; k >= 0; k-- ){ // for each date in lastWeek beggining from the provided index
             let url = 'https://min-api.cryptocompare.com/data/pricehistorical?fsym=' + tickerSymbol + '&tsyms=USD&ts=' + lastWeek[k];
@@ -22,7 +26,7 @@ const fetchPrices = () => {  // loop through currencies at an interval due to AP
                 res.on('data', data => {
                     body += data;
                 });
-            
+                
                 res.on('end', () => { // when the request is done
                     body = JSON.parse(body); // convert response to json
     
@@ -44,6 +48,7 @@ const fetchPrices = () => {  // loop through currencies at an interval due to AP
         };
         
     }
+
 
     const priceInterval = setInterval( () => {
         var currentTicker = currencies[currencyIndex]
