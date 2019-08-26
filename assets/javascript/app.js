@@ -60,8 +60,8 @@ var app = {
       };
 
       for( var i = 0; i < this.data.length; i++ ){
-        var date = moment.unix( this.data[i].date );
-        chartLine.x.push( date.format('YYYY-M-D') );
+        let date = moment.unix(this.data[i].date); 
+        chartLine.x.push(date.format('HH:mm'));
         chartLine.y.push( this.data[i].price );
       }
 
