@@ -37,7 +37,7 @@ var app = {
 
     getPrices: function( ){
 
-      var queryURL = 'http://hidden-savannah-78793.herokuapp.com/api/history/'+ this.activeCurrency;
+      var queryURL = 'https://cryptoclash.herokuapp.com/api/history/'+ this.activeCurrency;
 
       $.ajax({
         url: queryURL,
@@ -60,9 +60,9 @@ var app = {
       };
 
       for( var i = 0; i < this.data.length; i++ ){
-        var date = moment.unix( this.data[i].date );
-        chartLine.x.push( date.format('YYYY-M-D') );
-        chartLine.y.push( this.data[i].price );
+        let date = moment.unix(this.data[i].date); 
+        chartLine.x.unshift(date.format('HH:mm'));
+        chartLine.y.unshift(this.data[i].price);
       }
 
       var data = [chartLine]
@@ -411,7 +411,7 @@ var app = {
       });
 
       //get all messages and populate message history
-      $.get( "http://hidden-savannah-78793.herokuapp.com/api/messages/", function( response ) {
+      $.get( "https://hidden-savannah-78793.herokuapp.com/api/messages/", function( response ) {
         return response }).done(function( data ){
           for( var i = 0; i < data.length; i++ ){
             $('#messages').prepend($('<li>').html( app.chatModule.parseMessage( data[i] ) ));
