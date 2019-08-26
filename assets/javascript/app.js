@@ -61,8 +61,8 @@ var app = {
 
       for( var i = 0; i < this.data.length; i++ ){
         let date = moment.unix(this.data[i].date); 
-        chartLine.x.push(date.format('HH:mm'));
-        chartLine.y.push( this.data[i].price );
+        chartLine.x.unshift(date.format('HH:mm'));
+        chartLine.y.unshift(this.data[i].price);
       }
 
       var data = [chartLine]
