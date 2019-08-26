@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Price = require('./../models/Price.js');
 const axios = require('axios');
 const fs = require('fs');
-let currencies = [ 'BTC', 'ETH', 'RPX', 'DOGE' ]; // Currencies in ticker symbols
+let currencies = [ 'BTC', 'ETH', 'XRP', 'DOGE' ]; // Currencies in ticker symbols
 
 let now = new Date(); // first find the start of today in unix time
 let mins = new Date( now.getFullYear(), now.getMonth(), now.getDate(),now.getHours(), now.getMinutes() )/60000;
